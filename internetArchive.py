@@ -24,7 +24,8 @@ punk = [".", ",", ";", "\"", "\'", "?", "(", ")", ":", "-", "_", "`"]
 stopword = stopwords.words('english')
 stopword.extend(punk)
 
-
+##This need to be changed to point at the folder holding txt files on your computer. You will also need to change the
+#Path a few lines down.
 inputdir = "C:\\Users\\jic823\\Dropbox\\python\\soup\\HGISlab_USASK\\politicalEconomy"
 
 files = os.listdir(inputdir)
