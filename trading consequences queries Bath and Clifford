@@ -1,3 +1,5 @@
+Queries by Jon Bath with a little help from Jim Clifford
+
 --For all sentences mentioning a certain location and commodity
 
 select api_sentence.text, api_commoditymention.*, api_locationmention.*
