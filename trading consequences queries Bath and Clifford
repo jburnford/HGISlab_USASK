@@ -1,0 +1,293 @@
+--For all sentences mentioning a certain location and commodity
+
+select api_sentence.text, api_commoditymention.*, api_locationmention.*
+from api_locationmention_commodity_mention
+left join api_locationmention on locationmention_id = api_locationmention.id
+left join api_commoditymention on commoditymention_id = api_commoditymention.id
+left join api_sentence on api_commoditymention.sentence_id = api_sentence.id
+where api_locationmention.location_id = 109
+and api_commoditymention.commodity_id = 496
+
+
+
+--For a count of all mentions of a location linked to a given commodity in a given year (with geo location)
+
+select count(*), extract(year from api_document.pubdate) as year, api_commodity.text AS commodity, api_location.text as location, api_location.lon, api_location.lat
+from api_locationmention_commodity_mention
+left join api_locationmention on locationmention_id = api_locationmention.id
+left join api_commoditymention on commoditymention_id = api_commoditymention.id
+left join api_commodity on api_commoditymention.commodity_id = api_commodity.id
+left join api_location on api_locationmention.location_id = api_location.id
+left join api_document on api_locationmention.document_id = api_document.id
+where api_commoditymention.commodity_id = 496
+group by year, api_commodity.text, api_location.text, api_location.lon, api_location.lat
+
+
+
+--To get total number of pages per year --- results are now stored in pages_per_year table
+
+select count(*), extract(year from api_document.pubdate) as year
+from api_page
+left join api_document on api_page.document_id = api_document.id
+group by year
+order by year
+
+
+--To get total number of docs per year --- results are now stored in docs_per_year table
+
+select count(*), extract(year from api_document.pubdate) as year
+from api_document
+group by year
+order by year
+
+
+--To get number of mentions per year for a commodity
+
+select count(*), extract(year from api_document.pubdate) as year
+from api_commoditymention
+left join api_document on api_commoditymention.document_id = api_document.id
+where api_commoditymention.commodity_id = 496
+group by year
+order by year
+
+--To get number of mentions per year for a commodity, and the total number of all pages in that year (years 1800-1920)
+select count(*) AS mentions, pages_per_year.year, number as total_pages
+from api_commoditymention
+left join api_document on api_commoditymention.document_id = api_document.id
+left join pages_per_year ON extract(year from api_document.pubdate) = pages_per_year.year
+WHERE api_commoditymention.commodity_id = $commodity
+AND pages_per_year.year > 1799 AND pages_per_year.year < 1921
+group by year,number
+ORDER BY year ASC
+
+
+-- To get number of pages per year for a commodity
+SELECT year, sum(c)
+FROM (
+	select count(*) AS c, extract(year from api_document.pubdate) as year, page_id
+	from api_commoditymention
+	left join api_document on api_commoditymention.document_id = api_document.id
+	where api_commoditymention.commodity_id = 496
+	group by year, page_id
+	) AS sub
+GROUP BY year
+ORDER BY year
+
+-- Get number of pages per year for a given commodity, and the total number of all pages in that year (years 1800-1920)
+SELECT sub.year, count(c) AS pages, number
+FROM (
+	select count(*) AS c, extract(year from api_document.pubdate) as year, page_id
+	from api_commoditymention
+	left join api_document on api_commoditymention.document_id = api_document.id
+	where api_commoditymention.commodity_id = 496
+	group by year, page_id
+	) AS sub
+, pages_per_year
+WHERE sub.year = pages_per_year.year AND sub.year > 1799 AND sub.year < 1921
+GROUP BY sub.year, number
+ORDER BY sub.year
+
+
+--Same query as previous, but without using pages_per_year lookup table (slower, but not reliant on static data)
+
+SELECT sub.year, count(c) AS pages, number
+FROM (
+	select count(*) AS c, extract(year from api_document.pubdate) as year, page_id
+	from api_commoditymention
+	left join api_document on api_commoditymention.document_id = api_document.id
+	where api_commoditymention.commodity_id = 496
+	group by year, page_id
+	) AS sub
+,
+(
+	select count(*) AS number, extract(year from api_document.pubdate) as year
+	from api_page
+	left join api_document on api_page.document_id = api_document.id
+	group by year
+	order by year
+) AS sub2
+WHERE sub.year = sub2.year AND sub.year > 1799 AND sub.year < 1921
+GROUP BY sub.year, number
+ORDER BY sub.year
+
+
+--Ranked list of commodity mentions (top 1000)
+select count(*), api_commodity.text
+from api_commoditymention
+left join api_commodity on api_commoditymention.commodity_id = api_commodity.id
+group by api_commodity.text
+order by count DESC
+limit 1000
+
+--All commodities with 10 or more mentions
+select sub.text, sub.c
+from
+(
+select count(*) AS c, api_commodity.text
+from api_commoditymention
+left join api_commodity on api_commoditymention.commodity_id = api_commodity.id
+group by api_commodity.text
+order by c DESC
+) AS sub
+where c > 9
+
+--Ranked list of top 100 commodity mentions in a format easily transformed into JSON (drop first column, replace line breaks with commas, add beginning and ending curly brackets)
+select count(*), CONCAT ('"',api_commodity.id,'":"', api_commodity.text,'(',count(*),')"')
+from api_commoditymention
+left join api_commodity on api_commoditymention.commodity_id = api_commodity.id
+group by api_commodity.text, api_commodity.id
+order by count DESC
+limit 100
+
+--Ranked list of location mentions (top 2000); saved as .csv file in dropbox as the query takes over 20 minutes to run
+select count(*), api_location.id, api_location.text, lat, lon, geom
+from api_locationmention
+left join api_location on api_locationmention.location_id = api_location.id
+group by api_location.id, api_location.text, lat, lon, geom
+order by count DESC
+limit 2000
+
+--Ranked list of location mentions (top 100) missing co-ordinates; saved as .csv file in dropbox
+select count(*), api_location.id, api_location.text, lat, lon, geom
+from api_locationmention
+left join api_location on api_locationmention.location_id = api_location.id
+WHERE geom IS NULL
+group by api_location.id, api_location.text, lat, lon, geom
+order by count DESC
+limit 100
+
+--Get all the commodity mentions text in a particular collection (Jim’s hacked version for the Kew collection)—
+SELECT "id","text","commodity_id" FROM "public"."api_commoditymention" WHERE "document_id" > '25821' AND "document_id" > '1059'
+
+
+--Get all sentences mentioning a given commodity in a given date range
+SELECT DISTINCT(sentence_id)
+FROM api_commoditymention
+LEFT JOIN api_document on api_commoditymention.document_id = api_document.id
+WHERE api_commoditymention.commodity_id = 233
+AND extract(year from api_document.pubdate) > 1810 AND extract(year from api_document.pubdate) < 1821
+
+--Get a count of all other commodities occurring on the same page as a given commodity in a given date range. To get sentences just change two occurrences of page_id to sentence_id -- but be warned, sentences seem to mention only one commodity. Commodity being searched for will be included in results and should be the top one but is not always (try coal 308) because if the commodity occurs more than once on the page the page will be counted twice (but not for the master commodity thanks to the distinct clause). Trying to figure out how to weed out these duplicates.
+SELECT COUNT(*), api_commodity.text, api_commodity.id
+FROM api_commoditymention
+LEFT JOIN api_commodity ON api_commoditymention.commodity_id = api_commodity.id
+WHERE api_commoditymention.page_id =
+	ANY(
+	SELECT DISTINCT(page_id)
+	FROM api_commoditymention
+	LEFT JOIN api_document on api_commoditymention.document_id = api_document.id
+	WHERE api_commoditymention.commodity_id = 233
+	AND extract(year from api_document.pubdate) > 1810 AND extract(year from api_document.pubdate) < 1820
+	)
+GROUP BY api_commodity.text, api_commodity.id
+ORDER BY count DESC
+
+--Similar to above, but selecting the text from the commoditymetion table instead of the error prone text from the commodity table. This approach is bad for plurals though.
+
+SELECT COUNT(*), initcap(api_commoditymention.text)
+FROM api_commoditymention
+LEFT JOIN api_commodity ON api_commoditymention.commodity_id = api_commodity.id
+WHERE api_commoditymention.page_id =
+	ANY(
+	SELECT DISTINCT(page_id)
+	FROM api_commoditymention
+	LEFT JOIN api_document on api_commoditymention.document_id = api_document.id
+	WHERE api_commoditymention.commodity_id = 308
+	AND extract(year from api_document.pubdate) > 1800 AND extract(year from api_document.pubdate) < 1850
+	)
+GROUP BY initcap(api_commoditymention.text), api_commodity.id
+ORDER BY count DESC
+
+--Same as above, but broken down by Year. Not easy to visualize.
+SELECT COUNT(*), initcap(api_commoditymention.text), extract(year from api_document.pubdate)
+FROM api_commoditymention
+LEFT JOIN api_document on api_commoditymention.document_id = api_document.id
+LEFT JOIN api_commodity ON api_commoditymention.commodity_id = api_commodity.id
+WHERE api_commoditymention.page_id =
+	ANY(
+	SELECT DISTINCT(page_id)
+	FROM api_commoditymention
+	LEFT JOIN api_document on api_commoditymention.document_id = api_document.id
+	WHERE api_commoditymention.commodity_id = 176
+	AND extract(year from api_document.pubdate) > 1800 AND extract(year from api_document.pubdate) < 1900
+	)
+GROUP BY initcap(api_commoditymention.text), extract(year from api_document.pubdate), api_commodity.id
+ORDER BY count DESC
+
+--To look for missing locations in the location mention table:
+SELECT COUNT(*), initcap(text),location_id
+FROM "public"."api_locationmention" WHERE initcap(text) LIKE 'West Africa'
+GROUP BY initcap(text), location_id
+ORDER BY count DESC
+
+--Similar to above, but focused on locations with a pop_size = 0
+SELECT COUNT(*), initcap(text), location_id
+FROM "public"."api_locationmention" WHERE pop_size = 0
+GROUP BY initcap(text), location_id
+ORDER BY count DESC
+
+-- all commodities and places related 100 or more times (takes a long time to run so put results as commodity_location.csv in dropbox)
+SELECT sub.c, sub.com_id, sub.com_name, sub.loc_id, sub.loc_name
+FROM
+(
+	SELECT count(*) AS c, com.id AS com_id, com.text AS com_name, loc.id AS loc_id, loc.text AS loc_name
+	FROM api_locationmention_commodity_mention AS lc
+	LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+	LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+	LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
+	LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
+	GROUP BY com_id, com_name, loc_id, loc_name
+	ORDER BY c DESC
+) AS sub
+WHERE sub.c > 99
+
+-- all commodities linked to any location at least 10 times
+SELECT sub.c, sub.com_id, sub.com_name
+FROM
+(
+	SELECT count(*) AS c, com.id AS com_id, com.text AS com_name, loc.id AS loc_id, loc.text AS loc_name
+	FROM api_locationmention_commodity_mention AS lc
+	LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+	LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+	GROUP BY com_id, com_name
+	ORDER BY c DESC
+) AS sub
+WHERE sub.c > 9
+
+
+-- all commodities (just id) linked to London (id 109) 100 or more times
+
+SELECT sub.com_id
+FROM
+(
+SELECT count(*) AS c, com.id AS com_id
+	FROM api_locationmention_commodity_mention AS lc
+	LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+	LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+	LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
+	LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
+	WHERE loc.id = 109
+	GROUP BY com_id
+	ORDER BY c DESC
+) AS sub
+WHERE sub.c > 99
+
+
+--The array of commodity ids generated by the above so I don't need to run it as a subquery in the next query
+
+(308,199,160,890,225,219,223,200,198,170,139,377,320,191,205,166,140,232,152,133,220,217,183,302,392,222,155,224,153,599,322,176,327,211,136,432,188,607,189,519,270,234,251,438,263,276,523,203,274,291,689,179,258,436,337,329,293,455,412,292,2028,283,268,307,260,180,261,212,229,209,197,437,248,235,165,537,247,146,174,877,383,132,791,249,239,257,135,236,208,1572,576,285,509,556,169,751,134,172,496,262,1825,150,294,351,1837,348,328,213,601,4128,390,230,416,880,265,255152,405,309,330,144493,5110,3733,671,1310,394,641,297,313,2528,250,141,884,532,739,535,241,158,735,244,1380,763,148,433,688,273,154,1095,151,3998,604,145,221,371,2392,142,1017,356,493,1074,259,531,167,882,171,1325,202,196,178,393,186,1379,867,1373,194,4987,736,1016,305,284,1700,267,2439,207,765,365,388,1008,226,4240,544,1916,1771,518,1363,728,252,9039,2130,668,272,849,419,3999,177,906,382,194035,1180,546,243,785,354895,733,462,295,597,1693,1303,573,883,175,2085,264900,326,902,410,13843,452,505,149,142753,201,242,2168,3485,423,5117,319,395,277,743,284439,1239,797,290)
+
+-- all locations (currently includes London as well) from 1800-1899 linked to all commodities linked to London more than 100 times  (with Cork - 377, Madras - 270, and Martin - 890, excluded as they are faulty). Slow so saved as hinterlands.csv in dropbox
+
+SELECT COUNT(*), initcap(com_m.text) AS com_name, extract(year from doc.pubdate) AS year, doc.pubdate AS pub_date, loc.text, loc_m.in_country AS country, loc.lat, loc.lon
+FROM api_locationmention_commodity_mention AS lc
+LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
+LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
+LEFT JOIN api_document AS doc on com_m.document_id = doc.id
+WHERE com.id = ANY('{308,199,160,225,219,223,200,198,170,139,320,191,205,166,140,232,152,133,220,217,183,302,392,222,155,224,153,599,322,176,327,211,136,432,188,607,189,519,234,251,438,263,276,523,203,274,291,689,179,258,436,337,329,293,455,412,292,2028,283,268,307,260,180,261,212,229,209,197,437,248,235,165,537,247,146,174,877,383,132,791,249,239,257,135,236,208,1572,576,285,509,556,169,751,134,172,496,262,1825,150,294,351,1837,348,328,213,601,4128,390,230,416,880,265,255152,405,309,330,144493,5110,3733,671,1310,394,641,297,313,2528,250,141,884,532,739,535,241,158,735,244,1380,763,148,433,688,273,154,1095,151,3998,604,145,221,371,2392,142,1017,356,493,1074,259,531,167,882,171,1325,202,196,178,393,186,1379,867,1373,194,4987,736,1016,305,284,1700,267,2439,207,765,365,388,1008,226,4240,544,1916,1771,518,1363,728,252,9039,2130,668,272,849,419,3999,177,906,382,194035,1180,546,243,785,354895,733,462,295,597,1693,1303,573,883,175,2085,264900,326,902,410,13843,452,505,149,142753,201,242,2168,3485,423,5117,319,395,277,743,284439,1239,797,290 }'::int[])
+AND extract(year from doc.pubdate) > 1799 AND extract(year from doc.pubdate) < 1900
+GROUP BY com_name, year, loc.text, loc.lat, loc.lon, com.id, pub_date, country
+ORDER BY count DESC
+
