@@ -10,7 +10,12 @@ left join api_sentence on api_commoditymention.sentence_id = api_sentence.id
 where api_locationmention.location_id = 109
 and api_commoditymention.commodity_id = 496
 
-
+-- For all sentences mentioning a commodity with year
+select extract(year from api_document.pubdate) as year, api_sentence.text as text
+from api_commoditymention
+left join api_sentence on api_commoditymention.sentence_id = api_sentence.id
+left join api_document on api_commoditymention.document_id = api_document.id
+where api_commoditymention.commodity_id = 154
 
 --For a count of all mentions of a location linked to a given commodity in a given year (with geo location)
 
