@@ -298,3 +298,74 @@ AND extract(year from doc.pubdate) > 1799 AND extract(year from doc.pubdate) < 1
 GROUP BY com_name, year, loc.text, loc.lat, loc.lon, com.id, pub_date, country
 ORDER BY count DESC
 
+
+--Uses the in_country field to select/count all commodity-date-locati
+SELECT COUNT(*), initcap(com_m.text) AS com_name, extract(year from doc.pubdate) AS year, doc.pubdate AS pub_date, loc.text, loc_m.in_country AS country, loc.lat, loc.lon
+FROM api_locationmention_commodity_mention AS lc
+LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
+LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
+LEFT JOIN api_document AS doc on com_m.document_id = doc.id
+WHERE in_country = 'LK'
+AND extract(year from doc.pubdate) > 1799 AND extract(year from doc.pubdate) < 1900
+GROUP BY com_name, year, loc.text, loc.lat, loc.lon, com.id, pub_date, country
+ORDER BY count DESC
+
+SELECT COUNT(*), initcap(com_m.text) AS com_name, loc.text, loc_m.in_country AS country, loc.lat, loc.lon
+FROM api_locationmention_commodity_mention AS lc
+LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
+LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
+LEFT JOIN api_document AS doc on com_m.document_id = doc.id
+WHERE in_country = 'CA'
+AND extract(year from doc.pubdate) > 1799 AND extract(year from doc.pubdate) < 1901
+GROUP BY com_name, loc.text, loc.lat, loc.lon, com.id, country
+ORDER BY count DESC
+
+-- Selecting a wide range of data for all commodity mentions in a particular country
+(count, data, commodity text, placename text, lat, long, doc title, sentence)
+SELECT initcap(com_m.text) AS com_name, extract(year from doc.pubdate) AS year, doc.pubdate AS pub_date, loc.text AS loc_text, loc_m.in_country AS country, loc.lat, loc.lon, doc.id as doc_id, doc.title as title, doc.url, sent.text as sent_text
+FROM api_locationmention_commodity_mention AS lc
+LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
+LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
+LEFT JOIN api_document AS doc on com_m.document_id = doc.id
+LEFT JOIN api_sentence AS sent on com_m.sentence_id = sent.id
+WHERE in_country = 'CA'
+AND com.id = ANY('{151, 2015 }'::int[])
+AND extract(year from doc.pubdate) > 1799 AND extract(year from doc.pubdate) < 1901
+AND doc.collection_id = 120
+
+"id","text"
+"106","Foreign and Commonwealth Office Collection"
+"108","Royal Botanic Gardens, Kew: Archives: Directors Correspondence"
+"109","AMD Confidential Prints"
+"120","House of Commons Parliamentary Papers"
+"107","Miscellaneous"
+"110","Women's History"
+"111","Early Canadian Literature"
+"112","History of French Canada"
+"113","Native Studies"
+"114","Hudon's Bay Company"
+"115","Early Governors General of Canada"
+"116","Early Official Publications"
+"117","Jesuit Relations"
+"118","Early Canadian Periodicals"
+"119","Health and Medicine"
+
+--Lots of details for a particular commodity and collection
+
+SELECT initcap(com_m.text) AS com_name, extract(year from doc.pubdate) AS year, doc.pubdate AS pub_date, loc.text AS loc_text, loc_m.in_country AS country, loc.lat, loc.lon, doc.id as doc_id, doc.title as title, doc.url, sent.text as sent_text
+FROM api_locationmention_commodity_mention AS lc
+LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
+LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
+LEFT JOIN api_document AS doc on com_m.document_id = doc.id
+LEFT JOIN api_sentence AS sent on com_m.sentence_id = sent.id
+WHERE com.id = 176
+AND extract(year from doc.pubdate) > 1799 AND extract(year from doc.pubdate) < 1921
+AND doc.collection_id = 108
