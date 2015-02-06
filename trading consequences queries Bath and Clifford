@@ -494,3 +494,14 @@ left join api_location on api_locationmention.location_id = api_location.id
 WHERE "in_country" = 'LK'
 group by api_locationmention.text, api_locationmention.location_id, api_location.lon, api_location.lat
 ORDER BY count DESC
+
+Selecting a list of major commodities in the corpus:
+SELECT sub.count, sub.com_name
+FROM
+(
+SELECT count(*) AS count, initcap(api_commoditymention.text) AS com_name
+	FROM api_commoditymention
+	GROUP BY com_name
+	ORDER BY count DESC
+) AS sub
+WHERE sub.count > 1000
