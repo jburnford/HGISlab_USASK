@@ -505,3 +505,12 @@ SELECT count(*) AS count, initcap(api_commoditymention.text) AS com_name
 	ORDER BY count DESC
 ) AS sub
 WHERE sub.count > 1000
+
+Exploring which collections include Italy errors:
+
+SELECT count(*),text,in_country, api_document.collection_id
+FROM api_locationmention
+left join api_document on api_document.id = document_id
+WHERE text LIKE '%Italy%'
+Group By text,in_country, api_document.collection_id
+ORDER BY count DESC
