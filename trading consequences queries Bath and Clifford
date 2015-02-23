@@ -515,12 +515,12 @@ WHERE text LIKE '%Italy%'
 Group By text,in_country, api_document.collection_id
 ORDER BY count DESC
 
-Identifying the top commodities for all locations in China ('CN')
+Identifying the top commodities for all locations in China ('CN'):
 
 SELECT sub.com_id, sub.c, sub.c_text
 FROM
 (
-SELECT count(*) AS c, com.id AS com_id, com_m.text as c_text
+SELECT count(*) AS c, com.id AS com_id, initcap(com_m.text) as c_text
 	FROM api_locationmention_commodity_mention AS lc
 	LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
 	LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
@@ -528,6 +528,21 @@ SELECT count(*) AS c, com.id AS com_id, com_m.text as c_text
 	LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
 	WHERE loc_m.in_country = 'CN'
 	GROUP BY com_id, c_text
+	ORDER BY c DESC
+) AS sub
+WHERE sub.c > 99
+
+SELECT sub.c, sub.l_text
+FROM
+(
+SELECT count(*) AS c, initcap(loc_m.text) as l_text
+	FROM api_locationmention_commodity_mention AS lc
+	LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
+	LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
+	LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
+	LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
+	WHERE com.id = '176'
+	GROUP BY l_text
 	ORDER BY c DESC
 ) AS sub
 WHERE sub.c > 99
