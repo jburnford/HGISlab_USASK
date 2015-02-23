@@ -145,7 +145,9 @@ order by c DESC
 ) AS sub
 where c > 9
 
---Ranked list of top 100 commodity mentions in a format easily transformed into JSON (drop first column, replace line breaks with commas, add beginning and ending curly brackets)
+--Ranked list of top 100 commodity mentions in a format easily transformed into JSON 
+(drop first column, replace line breaks with commas, add beginning and ending curly brackets)
+
 select count(*), CONCAT ('"',api_commodity.id,'":"', api_commodity.text,'(',count(*),')"')
 from api_commoditymention
 left join api_commodity on api_commoditymention.commodity_id = api_commodity.id
@@ -153,7 +155,9 @@ group by api_commodity.text, api_commodity.id
 order by count DESC
 limit 100
 
---Ranked list of location mentions (top 2000); saved as .csv file in dropbox as the query takes over 20 minutes to run
+--Ranked list of location mentions (top 2000); 
+saved as .csv file in dropbox as the query takes over 20 minutes to run
+
 select count(*), api_location.id, api_location.text, lat, lon, geom
 from api_locationmention
 left join api_location on api_locationmention.location_id = api_location.id
@@ -171,7 +175,10 @@ order by count DESC
 limit 100
 
 --Get all the commodity mentions text in a particular collection (Jim’s hacked version for the Kew collection)—
-SELECT "id","text","commodity_id" FROM "public"."api_commoditymention" WHERE "document_id" > '25821' AND "document_id" > '1059'
+SELECT "id","text","commodity_id" 
+FROM "public"."api_commoditymention" 
+WHERE "document_id" > '25821' 
+AND "document_id" > '1059'
 
 
 --Get all sentences mentioning a given commodity in a given date range
@@ -181,7 +188,14 @@ LEFT JOIN api_document on api_commoditymention.document_id = api_document.id
 WHERE api_commoditymention.commodity_id = 233
 AND extract(year from api_document.pubdate) > 1810 AND extract(year from api_document.pubdate) < 1821
 
---Get a count of all other commodities occurring on the same page as a given commodity in a given date range. To get sentences just change two occurrences of page_id to sentence_id -- but be warned, sentences seem to mention only one commodity. Commodity being searched for will be included in results and should be the top one but is not always (try coal 308) because if the commodity occurs more than once on the page the page will be counted twice (but not for the master commodity thanks to the distinct clause). Trying to figure out how to weed out these duplicates.
+--Get a count of all other commodities occurring on the same page as a given commodity in a given date range. 
+To get sentences just change two occurrences of page_id to sentence_id 
+-- but be warned, sentences seem to mention only one commodity. 
+Commodity being searched for will be included in results and should be the top one but is not always (try coal 308) 
+because if the commodity occurs more than once on the page the page will be counted twice 
+(but not for the master commodity thanks to the distinct clause). 
+Trying to figure out how to weed out these duplicates.
+
 SELECT COUNT(*), api_commodity.text, api_commodity.id
 FROM api_commoditymention
 LEFT JOIN api_commodity ON api_commoditymention.commodity_id = api_commodity.id
@@ -196,7 +210,8 @@ WHERE api_commoditymention.page_id =
 GROUP BY api_commodity.text, api_commodity.id
 ORDER BY count DESC
 
---Similar to above, but selecting the text from the commoditymetion table instead of the error prone text from the commodity table. This approach is bad for plurals though.
+--Similar to above, but selecting the text from the commoditymetion table instead of the error prone text 
+from the commodity table. This approach is bad for plurals though.
 
 SELECT COUNT(*), initcap(api_commoditymention.text)
 FROM api_commoditymention
@@ -240,7 +255,9 @@ FROM "public"."api_locationmention" WHERE pop_size = 0
 GROUP BY initcap(text), location_id
 ORDER BY count DESC
 
--- all commodities and places related 100 or more times (takes a long time to run so put results as commodity_location.csv in dropbox)
+-- all commodities and places related 100 or more times 
+(takes a long time to run so put results as commodity_location.csv in dropbox)
+
 SELECT sub.c, sub.com_id, sub.com_name, sub.loc_id, sub.loc_name
 FROM
 (
@@ -291,7 +308,10 @@ WHERE sub.c > 99
 
 (308,199,160,890,225,219,223,200,198,170,139,377,320,191,205,166,140,232,152,133,220,217,183,302,392,222,155,224,153,599,322,176,327,211,136,432,188,607,189,519,270,234,251,438,263,276,523,203,274,291,689,179,258,436,337,329,293,455,412,292,2028,283,268,307,260,180,261,212,229,209,197,437,248,235,165,537,247,146,174,877,383,132,791,249,239,257,135,236,208,1572,576,285,509,556,169,751,134,172,496,262,1825,150,294,351,1837,348,328,213,601,4128,390,230,416,880,265,255152,405,309,330,144493,5110,3733,671,1310,394,641,297,313,2528,250,141,884,532,739,535,241,158,735,244,1380,763,148,433,688,273,154,1095,151,3998,604,145,221,371,2392,142,1017,356,493,1074,259,531,167,882,171,1325,202,196,178,393,186,1379,867,1373,194,4987,736,1016,305,284,1700,267,2439,207,765,365,388,1008,226,4240,544,1916,1771,518,1363,728,252,9039,2130,668,272,849,419,3999,177,906,382,194035,1180,546,243,785,354895,733,462,295,597,1693,1303,573,883,175,2085,264900,326,902,410,13843,452,505,149,142753,201,242,2168,3485,423,5117,319,395,277,743,284439,1239,797,290)
 
--- all locations (currently includes London as well) from 1800-1899 linked to all commodities linked to London more than 100 times  (with Cork - 377, Madras - 270, and Martin - 890, excluded as they are faulty). Slow so saved as hinterlands.csv in dropbox
+-- all locations (currently includes London as well) from 1800-1899 
+linked to all commodities linked to London more than 100 times  
+(with Cork - 377, Madras - 270, and Martin - 890, excluded as they are faulty). 
+Slow so saved as hinterlands.csv in dropbox
 
 SELECT COUNT(*), initcap(com_m.text) AS com_name, extract(year from doc.pubdate) AS year, doc.pubdate AS pub_date, loc.text, loc_m.in_country AS country, loc.lat, loc.lon
 FROM api_locationmention_commodity_mention AS lc
@@ -346,7 +366,7 @@ AND com.id = ANY('{133, 412, 683, 479, 962, 356}'::int[])
 AND extract(year from doc.pubdate) > 1799 AND extract(year from doc.pubdate) < 1901
 AND doc.collection_id = 120
 
-"id","text"
+Collections Information:
 "106","Foreign and Commonwealth Office Collection"
 "108","Royal Botanic Gardens, Kew: Archives: Directors Correspondence"
 "109","AMD Confidential Prints"
@@ -399,8 +419,6 @@ by commodity:
 SELECT "id","text","document_id","commodity_id","page_id","sentence_id" FROM "public"."api_commoditymention" WHERE "commodity_id" = '251' AND "document_id" NOT IN (155069, 113679, 113680, 114556, 115374, 116434, 117351, 118431, 119434, 120364, 121316, 122318, 123273, 124230, 125306, 126291, 127170, 128117, 129144, 130082, 131062, 131959, 132967, 133972, 134954, 135905, 136868, 137890, 138935, 140027, 141066, 142094, 143091, 144022, 145064, 146578, 147875, 155205, 156088, 162629, 164034, 165324, 166974, 168277, 169560, 170843, 172128, 173421, 174825, 176205, 177448, 178933, 180215, 181538, 182895, 183057, 184427, 184748, 185835, 186044, 187545, 187704, 189053, 189301, 190396, 190532, 191900, 193559, 194887, 196300, 196542, 197662, 197849, 198506, 199157, 199776, 200774)
 by location:
 SELECT "id","text","in_country","document_id","location_id","page_id","sentence_id" FROM "public"."api_locationmention" WHERE "location_id" = '235' AND "document_id" NOT IN (97475, 98813, 99408, 100139, 100763, 101475, 101984, 102716, 102717, 103432, 104176, 104891, 105683, 106494, 107390, 107397, 108176, 108177, 108178, 108179, 108180, 108181, 108182, 108183, 109049, 109050, 109051, 109052, 109053, 109054, 109055, 109056, 109862, 109863, 109864, 109865, 109866, 109867, 109868, 109869, 153097, 110541, 110542, 110543, 110544, 110545, 110546, 110547, 111635, 111634, 111636, 111637, 111638, 111639, 111640, 111641, 111642, 112648, 113626, 154152, 114517, 115391, 116408, 114852, 116884, 118406, 119429, 120319, 121315, 122317, 123272, 124229, 125305, 126289, 127168, 128115, 129142, 130081, 131061, 131958, 132966, 133971, 134953, 135904, 136867, 137889, 138934, 140026, 141065, 142093, 143090, 144021, 145063, 146577, 147874, 148197, 148902, 149393, 149953, 150568, 151091, 151706, 155273, 156202, 156832, 157375, 158028, 158798, 159399, 159958, 160500, 160919, 162628, 164033, 165323, 166973, 168276, 170842, 172127, 173420, 174824, 176204, 176544, 177712, 179249, 180450, 181789, 183168, 184773, 186138, 187952, 189425, 190700, 192271, 194001, 195287, 196951, 198116, 198721, 198963, 199932, 152388, 155069, 113679, 113680, 114556, 115374, 116434, 117351, 118431, 119434, 120364, 121316, 122318, 123273, 124230, 125306, 126291, 127170, 128117, 129144, 130082, 131062, 131959, 132967, 133972, 134954, 135905, 136868, 137890, 138935, 140027, 141066, 142094, 143091, 144022, 145064, 146578, 147875, 155205, 156088, 162629, 164034, 165324, 166974, 168277, 169560, 170843, 172128, 173421, 174825, 176205, 177448, 178933, 180215, 181538, 182895, 183057, 184427, 184748, 185835, 186044, 187545, 187704, 189053, 189301, 190396, 190532, 191900, 193559, 194887, 196300, 196542, 197662, 197849, 198506, 199157, 199776, 200774)
-
-
 
 Using the filter for actual results:
 select count(*), extract(year from api_document.pubdate) as year, api_commodity.text AS commodity, api_location.text as location, api_location.lon, api_location.lat
