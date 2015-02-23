@@ -1,4 +1,11 @@
-Queries by Jon Bath with a little help from Jim Clifford
+Trading Consequences is a collaborative project that text mined over ten million pages of nineteenth century documents. 
+You can explore the results through a number of purpose built visualizations available through our website: 
+	http://tradingconsequences.blogs.edina.ac.uk/access-the-data/. 
+It is also possible to download a local copy of the database and explore the results directly:
+	https://github.com/digtrade/digtrade/tree/master/database. 
+Below are a number of queries we’ve used to extract information from the database.  
+
+Queries by Jon Bath and Jim Clifford
 
 --For all sentences mentioning a certain location and commodity
 
