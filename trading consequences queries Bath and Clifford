@@ -366,7 +366,7 @@ AND com.id = ANY('{133, 412, 683, 479, 962, 356}'::int[])
 AND extract(year from doc.pubdate) > 1799 AND extract(year from doc.pubdate) < 1901
 AND doc.collection_id = 120
 
-Collections Information:
+Collection IDs:
 "106","Foreign and Commonwealth Office Collection"
 "108","Royal Botanic Gardens, Kew: Archives: Directors Correspondence"
 "109","AMD Confidential Prints"
@@ -463,14 +463,6 @@ group by year, api_commodity.text, api_location.text, api_location.lon, api_loca
 
 (51, 116, 128, 134, 139, 145, 147, 150, 154, 155, 156, 157, 160, 178, 184, 190, 194, 196, 197, 198, 202, 211, 212, 213, 216, 217)
 
-Searching for West Ham:
-
-select api_sentence.text, api_document.title, api_document.pubdate, api_document.docid
-from api_locationmention
-left join api_sentence on api_locationmention.sentence_id = api_sentence.id
-left join api_document on api_locationmention.document_id = api_document.id
-where api_locationmention.text LIKE '%West Ham %'
-group by api_sentence.text, api_document.title, api_document.pubdate, api_document.docid
 
 -- all locations (just id) linked to Cotton (id 176) 10 or more times
 
@@ -553,21 +545,6 @@ SELECT count(*) AS c, com.id AS com_id, initcap(com_m.text) as c_text
 	LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
 	WHERE loc_m.in_country = 'CN'
 	GROUP BY com_id, c_text
-	ORDER BY c DESC
-) AS sub
-WHERE sub.c > 99
-
-SELECT sub.c, sub.l_text
-FROM
-(
-SELECT count(*) AS c, initcap(loc_m.text) as l_text
-	FROM api_locationmention_commodity_mention AS lc
-	LEFT JOIN api_commoditymention AS com_m ON lc.commoditymention_id = com_m.id
-	LEFT JOIN api_commodity AS com ON com_m.commodity_id = com.id
-	LEFT JOIN api_locationmention AS loc_m ON lc.locationmention_id = loc_m.id
-	LEFT JOIN api_location AS loc ON loc_m.location_id = loc.id
-	WHERE com.id = '176'
-	GROUP BY l_text
 	ORDER BY c DESC
 ) AS sub
 WHERE sub.c > 99
