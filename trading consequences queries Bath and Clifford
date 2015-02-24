@@ -548,3 +548,11 @@ SELECT count(*) AS c, com.id AS com_id, initcap(com_m.text) as c_text
 	ORDER BY c DESC
 ) AS sub
 WHERE sub.c > 99
+
+Finding Sentences with the Location Victoria:
+
+Select DISTINCT(api_sentence.text)
+FROM api_locationmention
+left join api_sentence on api_locationmention.sentence_id = api_sentence.id
+WHERE api_locationmention.text LIKE '%Victoria%'
+
