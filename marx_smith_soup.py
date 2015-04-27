@@ -29,6 +29,7 @@ punk = [".", ",", ";", "\"", "\'", "?", "(", ")", ":", "-", "_", "`"]
 stopword = stopwords.words('english')
 stopword.extend(punk)
 
+
 #With those basics prepared, the script starts here:
 
 #This print command simply prints "Karl Marx Capital"
@@ -63,8 +64,16 @@ raw_input("Press Enter to continue...")
 #uses our stopword list created above to strip the list of words. I've also only returned words larger than 1 characters
 #as I noticed some OCR noise showing up in the word frequencies. The final step prints a random selection of filtered
 #words from the 500th to the 600th in the list.
+print "WORD FREQUENCY:"
+fdist0 = nltk.FreqDist(words)
+print fdist0.most_common(20)
+raw_input("Press Enter to continue...")
 
-print "FILTERED WORDS"
+print "Stopwords:"
+print stopword
+raw_input("Press Enter to continue...")
+
+print "FILTERED WORDS with Stopwords removed:"
 filtered_words = [w for w in words if not w in stopword]
 #filtered_words = [w for w in filtered_words if not w in punk]
 filtered_words = [w for w in filtered_words if len(w) > 1]
@@ -72,8 +81,9 @@ print filtered_words[500:600]
 raw_input("Press Enter to continue...")
 
 #This step uses an NLTK function to determine the most frequent words in the filtered list:
-print "WORD FREQUENCY:"
-print nltk.FreqDist(filtered_words)
+print "WORD FREQUENCY of Filtered Words:"
+fdist1 = nltk.FreqDist(filtered_words)
+print fdist1.most_common(20)
 raw_input("Press Enter to continue...")
 
 #It is also possible to tokenize the sentences and this step is useful for further natural language analysis. The third
@@ -160,7 +170,8 @@ raw_input("Press Enter to continue...")
 
 #This step uses an NLTK function to determine the most frequent words in the filtered list:
 print "WORD FREQUENCY:"
-print nltk.FreqDist(filtered_words)
+fdist2 = nltk.FreqDist(filtered_words)
+print fdist2.most_common(20)
 raw_input("Press Enter to continue...")
 
 #It is also possible to tokenize the sentences and this step is useful for further natural language analysis. The third
