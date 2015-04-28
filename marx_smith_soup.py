@@ -39,16 +39,23 @@ print "Karl Marx Capital"
 #This opens and reads the website, returning the HTML code
 soup = BeautifulSoup(urllib2.urlopen("http://archive.org/stream/capitalcritiqueo00marx/capitalcritiqueo00marx_djvu.txt").read())
 
-
-raw = soup.pre.string
 #I checked the source HTML code and found that the <pre> tag comes after all of the website preamble that we don't
 #want to analysis. This command searches through the string of HTML data and finds the location of the <pre> tag and
 #returns the string from that point forward.
+raw = soup.pre.string
+
+#We can measure the number of characters in the book:
+
+print "The number of characters in the book:"
+print len(raw)
 
 #This tokenizer using the regular expressions above to break the text in too a list of word tokens.
 tokens = nltk.regexp_tokenize(raw, pattern)
+#We can measure the number of characters in the book:
+print "The number of tokens in the book:"
+print len(tokens)
 
-#This next steps does two things. It creates a "Text" from the tokens, which allows us to preform other NLTK fucntions.
+#This next steps does two things. It creates a "Text" from the tokens, which allows us to preform other NLTK functions.
 #And it normalizes all the words to lowercase, which makes it possible to count word frequencies.
 print "WORDS:"
 text = nltk.Text(tokens)
