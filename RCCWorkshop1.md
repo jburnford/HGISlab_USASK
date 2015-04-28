@@ -14,14 +14,13 @@ Python coding.
 
 ### **Sample Code :**
 
-Here is a link to the Python sample code I’ve created for this workshop (it
+[Here is a link to the Python sample code I’ve created for this workshop (it
 needs python 2.7, Beatifulsoup 4, NLTK and NLTK data installed/downloaded - see
-below for
-instructions):<https://www.dropbox.com/s/200m39ekwl4xa95/marx_smith.pyhttps://github.com/jburnford/HGISlab_USASK/blob/master/marx_smith_soup.py>
+below for instructions):][1]
 
--   [https://github.com/jburnford/HGISlab\_USASK/blob/master/marx\_smith\_soup.py][1]
+[1]: <https://github.com/jburnford/HGISlab_USASK/blob/master/marx_smith_soup.py>
 
-    [1]: <https://github.com/jburnford/HGISlab_USASK/blob/master/marx_smith_soup.py>
+ 
 
 ### **Choosing a first language:**
 
