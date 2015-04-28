@@ -24,7 +24,7 @@ pattern = r'''(?x)    # set flag to allow verbose regexps
 
 sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
-#I've also chossen to strip punctuation when removing stopwords. I add this list of punctuation to the end of a list of
+#I've also chosen to strip punctuation when removing stopwords. I add this list of punctuation to the end of a list of
 #stopwords provided by the NLTK:
 punk = [".", ",", ";", "\"", "\'", "?", "(", ")", ":", "-", "_", "`"]
 stopword = stopwords.words('english')
