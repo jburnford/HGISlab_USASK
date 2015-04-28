@@ -44,10 +44,6 @@ raw = soup.pre.string
 #want to analysis. This command searches through the string of HTML data and finds the location of the <pre> tag and
 #returns the string from that point forward.
 
-#This is a crucial step if we were working with a page with a lot of HTML coding. It strips out the HTLM and returns
-#raw plaintext.
-#raw = nltk.clean_html(html2).replace("-    ","").replace("\xe2", "")
-
 #This tokenizer using the regular expressions above to break the text in too a list of word tokens.
 tokens = nltk.regexp_tokenize(raw, pattern)
 
