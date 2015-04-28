@@ -157,7 +157,7 @@ and hit enter
 
  
 
-**Your computer should not be ready to run the code I linked to above.**
+**Your computer should now be ready to run the code I linked to above.**
 
  
 
@@ -171,7 +171,7 @@ Internet Archive (Archive.org) is the largest archive in the world and it is
 easy to search and bulk download thousands of historical documents from this
 website. In October 2012, its collection topped 10 petabytes. In this workshop
 we’ll be looking at Karl Marx’s [Capital][7] and Adam Smith’s [Wealth of
-Nations][8]:<https://archive.org/details/capitalcritiqueo00marx>
+Nations][8]:
 
 [7]: <https://archive.org/details/capitalcritiqueo00marx>
 
@@ -191,9 +191,9 @@ Nations][8]:<https://archive.org/details/capitalcritiqueo00marx>
 **Natural Language Toolkit** (The NLTK provides a lot of great functions for
 text mining using python. The creators also wrote a textbook that is a fantastic
 introduction to both coding in Python and computational linguistics. If you are
-really interested in learning to text mine, I would highly recommend working
-your way through this book, which is online for free and available from O’Reilly
-publishers):
+really interested in learning to program and would like to understand text
+mining, I would highly recommend working your way through this book, which is
+online for free and available from O’Reilly publishers\*):
 
 -   <http://www.nltk.org/>
 
@@ -206,6 +206,11 @@ publishers):
 -   Jacob Perkins, *Python Text Processing with NLTK 2.0 Cookbook* (Birmingham:
     Packt Publ., 2010),
     <http://www.packtpub.com/python-text-processing-nltk-20-cookbook/book>
+
+\*NLTK has been updated to Version 3 and the publish book uses Version 2. The
+authors are currently updating the book and plan to publish a second edition in
+early 2016. The online version includes many of the updates and flags the
+chapters that are still works in progress.
 
  
 
