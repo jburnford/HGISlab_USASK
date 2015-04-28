@@ -16,11 +16,12 @@ Python coding.
 
 Here is a link to the Python sample code I’ve created for this workshop (it
 needs python 2.7, Beatifulsoup 4, NLTK and NLTK data installed/downloaded - see
-below for instructions):[ ][1]
+below for
+instructions):<https://www.dropbox.com/s/200m39ekwl4xa95/marx_smith.pyhttps://github.com/jburnford/HGISlab_USASK/blob/master/marx_smith_soup.py>
 
-[1]: <https://www.dropbox.com/s/200m39ekwl4xa95/marx_smith.pyhttps://github.com/jburnford/HGISlab_USASK/blob/master/marx_smith_soup.py>
+-   [https://github.com/jburnford/HGISlab\_USASK/blob/master/marx\_smith\_soup.py][1]
 
- 
+    [1]: <https://github.com/jburnford/HGISlab_USASK/blob/master/marx_smith_soup.py>
 
 ### **Choosing a first language:**
 
@@ -200,9 +201,8 @@ publishers):
 -   Here is the online version of the book: <http://www.nltk.org/book>
 
 -   Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with
-    Python*, accessed December 9, 2013,[ ][9].
-
-    [9]: <http://shop.oreilly.com/product/9780596516499.dohttp://shop.oreilly.com/product/9780596516499.do>
+    Python*, accessed December 9,
+    2013,<http://shop.oreilly.com/product/9780596516499.dohttp://shop.oreilly.com/product/9780596516499.do>.
 
 -   Jacob Perkins, *Python Text Processing with NLTK 2.0 Cookbook* (Birmingham:
     Packt Publ., 2010),
@@ -331,10 +331,10 @@ soup = BeautifulSoup(urllib2.urlopen("http://archive.org/stream/capitalcritiqueo
 I checked the source HTML code and found that the \<pre\> tag comes after all of
 the website preamble that we don't want to include. This command searches
 through the string of HTML data and finds the location of the \<pre\> tag and
-returns the [text string][10] from that point forward. We now have the long raw
+returns the [text string][9] from that point forward. We now have the long raw
 text of Marx's Capital.
 
-[10]: <http://en.wikipedia.org/wiki/String_%28computer_science%29>
+[9]: <http://en.wikipedia.org/wiki/String_%28computer_science%29>
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 raw = soup.pre.string
