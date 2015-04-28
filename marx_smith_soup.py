@@ -20,7 +20,8 @@ pattern = r'''(?x)    # set flag to allow verbose regexps
     | \.\.\.            # ellipsis
     | [][.,;"'?():-_`]  # these are separate tokens
     '''
-#This defines which sentense tokenizer I've choosen to use.
+#This defines which sentence tokenizer I've chosen to use.
+
 sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
 #I've also chossen to strip punctuation when removing stopwords. I add this list of punctuation to the end of a list of
