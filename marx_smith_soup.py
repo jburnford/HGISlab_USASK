@@ -43,8 +43,6 @@ raw = soup.pre.string
 #I checked the source HTML code and found that the <pre> tag comes after all of the website preamble that we don't
 #want to analysis. This command searches through the string of HTML data and finds the location of the <pre> tag and
 #returns the string from that point forward.
-#be = html.find("<pre>")
-#html2 = html[be:]
 
 #This is a crucial step if we were working with a page with a lot of HTML coding. It strips out the HTLM and returns
 #raw plaintext.
