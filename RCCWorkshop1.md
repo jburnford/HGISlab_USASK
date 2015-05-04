@@ -99,7 +99,9 @@ The simplest way to install packages is to use PyCharm’s project interpreter
 
 4.  Install nltk
 
-5.  to check that it all worked, go to Tools in PyCharm and click “Python
+5.  Install matplotlib
+
+6.  to check that it all worked, go to Tools in PyCharm and click “Python
     Console” type:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,10 +112,10 @@ and hit enter
 
 1.  if you don’t get an error it worked
 
-2.  try the same thing for numpy
+2.  try the same thing for numpy and matplotlib
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import numpy 
+import numpy, matplotlib 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 and hit enter
