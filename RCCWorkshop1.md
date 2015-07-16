@@ -1,7 +1,6 @@
 **Brown Bag Workshop: Basic Introduction to Python and Text Mining for the Digital Humanities**
 -----------------------------------------------------------------------------------------------
 
- 
 
 **Event details:**
 
