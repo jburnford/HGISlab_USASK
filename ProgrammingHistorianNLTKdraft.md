@@ -10,27 +10,36 @@ Python package that adds a wide range of functions and tools that can be used
 for text mining historical soruces. It also includes a wide range of data, from
 stopword lists to large test corpus, some of which are particularly useful for
 testing digital history methods (such as the Inaugural Address corpus). This
-lesson is relatively brief, as there is an excellent openaccess book written by
-the NLTK developers that introduces computational linguistics and programming in
-Python and this lesson will end off by encouraging digital historians to work
+lesson is relatively brief, as there is an excellent open access book\* written
+by the NLTK developers that introduces computational linguistics and programming
+in Python and this lesson will end off by encouraging digital historians to work
 through this fantastic resource.
 
- 
+-   <http://www.nltk.org/>
 
-### **Installing Python,  Numpy, Beautiful Soup 4 and NLTK:**
+-   Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with
+    Pythoy*, <http://www.nltk.org/book>
+
+\*NLTK has been updated to Version 3 and the publish book uses Version 2. The
+authors are currently updating the book and plan to publish a second edition in
+early 2016. The online version includes many of the updates and flags the
+chapters that are still works in progress.
+
+### Installing Python:
 
 [Python 2.7](<https://www.python.org>)** **and 3.x:
 
 There are two versions of Python 2.7 and 3.x. Version 2.7 is no longer
-developed, but a lot of older code still relies on it, while everything is
-slowly moving to Version 3. The most recent version of the NLTK has moved to
-Python 3, so this lesson will use version 3. You may need to install the new
-version if you’ve done the other Python lessons on this website. You can install
-both versions on your computer and use them both.
+developed, but a lot of older code still relies on it. The most recent version
+of the NLTK has been adapted for Python 3, so this lesson will use version 3.
+You may need to install the new version if you’ve done the other Python lessons
+on this website. You can install both versions on your computer and use them
+both. The most noticeable change is that the print command requrieds brackets in
+version 3: print(“Hello World”).
 
  
 
-[Packages:](<http://en.wikipedia.org/wiki/Python_Package_Index>)
+### Installing NLTK and BeautifulSoup: 
 
 Python has a core language and then packages that extent the language for other
 uses. This tutorial uses the Natural Language Toolkit or NLTK for text mining
@@ -41,42 +50,38 @@ and we need to get it and a few more standard packages installed
 1.  The NLTK website provides instructions on installing their package and Numpy
     on Mac/Linux or Windows machines: <http://www.nltk.org/install.html>
 
-2.  Install numpy
-
-3.  Install beautifulsoup4
-
-4.  Install matplotlib
-
-5.  to check that it all worked, go to Tools in PyCharm and click “Python
-    Console” type:
+2.  to check that it all worked, launch your terminal and start by launching
+    Python3 and try to import nltk:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>python3
 import nltk 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-and hit enter
+1.  and hit enter. If you don’t get an error it worked.
 
-1.  if you don’t get an error it worked
+2.  Check to see if you have Beautiful Soup already installed from a pervious
+    lesson.
 
-2.  try the same thing for numpy and matplotlib
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import numpy, matplotlib 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-and hit enter
-
-1.  try ‘import bs4’ to check Beautiful Soup installed correctly.
+3.  From the Python consoul, try ‘import bs4’ to check Beautiful Soup is
+    installed.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import bs4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-and hit enter
+1.  and hit enter
 
-1.  NLTK also provides some data that we’ll use in the workshop. Use the Python
-    Console again and follow these instructions (from
-    <http://www.nltk.org/data.html>):
+2.  If you get an error, visit the "[Intro to Beautiful
+    Soup](<http://programminghistorian.org/lessons/intro-to-beautiful-soup>)"
+    lesson for instructions on installing beautifulsoup4
+
+### 
+NLTK Data:
+
+NLTK also provides some data that we’ll use in the workshop. Use the Python
+Console again and follow these instructions (from
+<http://www.nltk.org/data.html>):
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>> import nltk
@@ -86,8 +91,8 @@ and hit enter
 >   A new window should open, showing the NLTK Downloader. Click on the File
 >   menu and select Change Download Directory. For central installation, set
 >   this to C:\\nltk\_data (Windows), or/usr/share/nltk\_data (Mac, Unix). Next,
->   select the packages or collections you want to download. **[Choose all
->   packages]**
+>   select the packages or collections you want to download: **[Everything Used
+>   in the NLTK book].**
 
 >   If you did not install the data to one of the above central locations, you
 >   will need to set theNLTK\_DATA environment variable to specify the location
@@ -105,12 +110,7 @@ and hit enter
 
  
 
-**Your computer should now be ready to run the code I linked to above.**
-
  
-
-Workshop:
----------
 
 **The Internet Archive:**
 
@@ -129,33 +129,7 @@ we’ll be looking at Karl Marx’s
 
  
 
-**Introduction to Text Mining with Python:**
-
  
-
-**Natural Language Toolkit** (The NLTK provides a lot of great functions for
-text mining using python. The creators also wrote a textbook that is a fantastic
-introduction to both coding in Python and computational linguistics. If you are
-really interested in learning to program and would like to understand text
-mining, I would highly recommend working your way through this book, which is
-online for free and available from O’Reilly publishers\*):
-
--   <http://www.nltk.org/>
-
--   Here is the online version of the book: <http://www.nltk.org/book>
-
--   Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with
-    Python*, accessed December 9,
-    2013,<http://shop.oreilly.com/product/9780596516499.dohttp://shop.oreilly.com/product/9780596516499.do>.
-
--   Jacob Perkins, *Python Text Processing with NLTK 2.0 Cookbook* (Birmingham:
-    Packt Publ., 2010),
-    <http://www.packtpub.com/python-text-processing-nltk-20-cookbook/book>
-
-\*NLTK has been updated to Version 3 and the publish book uses Version 2. The
-authors are currently updating the book and plan to publish a second edition in
-early 2016. The online version includes many of the updates and flags the
-chapters that are still works in progress.
 
  
 
