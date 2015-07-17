@@ -7,13 +7,13 @@ This lesson is intended to introduce some of the basic features of the [Natural
 Language Toolkit (NLTK)](<http://www.nltk.org/>), which is "a leading platform
 for building Python programs to work with human language data”. The NLTK is a
 Python package that adds a wide range of functions and tools that can be used
-for text mining historical soruces. It also includes a wide range of data, from
-stopword lists to large test corpus, some of which are particularly useful for
-testing digital history methods (such as the Inaugural Address corpus). This
-lesson is relatively brief, as there is an excellent open access book\* written
-by the NLTK developers that introduces computational linguistics and programming
-in Python and this lesson will end off by encouraging digital historians to work
-through this fantastic resource.
+for text mining historical sources. It also includes a wide range of data, from
+multilingual stopword lists to large test corpus, some of which are particularly
+useful for testing digital history methods (such as the Inaugural Address
+corpus). This lesson is relatively brief, as there is an excellent open access
+book\* written by the NLTK developers that introduces natural language
+processing and programming in Python and this lesson will conclude by
+encouraging digital historians to work through this fantastic resource.
 
 -   <http://www.nltk.org/>
 
@@ -22,7 +22,7 @@ through this fantastic resource.
 
 \*NLTK has been updated to Version 3 and the publish book uses Version 2. The
 authors are currently updating the book and plan to publish a second edition in
-early 2016. The online version includes many of the updates and flags the
+early 2016. The online version includes most of the updates and flags the
 chapters that are still works in progress.
 
 ### Installing Python:
@@ -51,8 +51,8 @@ brackets in version 3: print(“Hello World”).
         to work with a range of opensource software (Get that Linux feeling - on
         Windows):< http://cygwin.com/>
 
-3.  Installling Python 3 on Mac OSX (Mac comes with 2.7 installed, but it is
-    easy to add the latest release of version 3):
+3.  Installing Python 3 on Mac OSX (Mac comes with 2.7 installed, but it is easy
+    to add the latest release of version 3):
     <https://docs.python.org/3/using/mac.html>
 
 4.  Both versions of Python normally come preinstalled on Linux:
@@ -60,8 +60,8 @@ brackets in version 3: print(“Hello World”).
 
  
 
-If you are on a Mac or Linux machine, lauch terminal and start working with
-Python throught he command line:
+If you are on a Mac or Linux machine, launch terminal and start working with
+Python through the command line:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $python
@@ -90,14 +90,14 @@ search.
 
 ### Installing NLTK and BeautifulSoup:
 
-Python has a core language and then packages that extent the language for other
-uses. This tutorial uses the Natural Language Toolkit or NLTK for text mining
-and we need to get it and Beautiful Soup installed.
+Python has a core language and then packages that extent the language. This
+tutorial uses the Natural Language Toolkit or NLTK for text mining and we need
+to get it and Beautiful Soup installed.
 
  
 
 1.  The NLTK website provides instructions on installing their package and Numpy
-    on Mac/Linux or Windows machines: <http://www.nltk.org/install.html >
+    on Mac/Linux or Windows machines: <http://www.nltk.org/install.html.>
 
     -   (for Windows, be sure to choose the .exe MS Windows installer)
 
@@ -178,6 +178,9 @@ In this workshop we’ll be looking at Karl Marx’s
 
  
 
+The code will work on any text in this digital archive if you find the URL for
+the djvu.txt.
+
  
 
  
@@ -187,8 +190,9 @@ In this workshop we’ll be looking at Karl Marx’s
  
 
 Each time we start working with Python we need to import the packages we will
-use. Here we import urllib2 so Python can read websites, Beautifulsoup to
-download and convert the webpage to raw text and nltk to process the raw text.
+use. Here we import urllib2 or urllib.request so Python can read websites,
+Beautifulsoup to download and convert the webpage to raw text and nltk to
+process the raw text.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Python2: >>>import urllib2
@@ -214,15 +218,17 @@ use an equal sign the Python interpreter assigns the data or code to that value.
 
  
 
-I've also chosen to strip punctuation when removing stopwords. I add this list
-of punctuation to the end of a list of stopwords provided by the NLTK:
+First we need to create our list of stopwords. We’ll use the English list
+provided by the NLTK data you downloaded above.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>stopword = stopwords.words('english')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We can add punctuation to the list of stopwords:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>punk = [".", ",", ";", "\"", "\'", "?", "(", ")", ":", "-", "_", "`","''","``","—","...","&"]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>>stopword = stopwords.words('english')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -231,15 +237,13 @@ of punctuation to the end of a list of stopwords provided by the NLTK:
 
  
 
- 
-
-**With those basics prepared, the script starts here:**
-
-We are going to start by downloading an English translation of Karl Marx’s
+We can now= start by downloading an English translation of Karl Marx’s Capital.
 
  
 
-This opens and reads the website, returning the HTML code
+There are a number of way to import the contents of an Internet Archive text
+page. We will use Beautiful Soup and urllib to open and reads the website, and
+return the HTML code:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>soup = BeautifulSoup(urllib2.urlopen("http://archive.org/stream/capitalcritiqueo00marx/capitalcritiqueo00marx_djvu.txt").read())
@@ -273,24 +277,29 @@ This tokenizer breaks the text in too a list of word tokens.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>tokens = nltk.word_tokenize(raw)
+>>>tokens[100:200]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
 
-We can measure the number of characters in the book:
+We can measure the number of tokens in the book:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>len(tokens)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+ 
+
 This next steps does two things. It creates a NLTK "Text" from the tokens, which
-allows us to preform other NLTK functions.
+allows us to preform a range of other NLTK functions.
 
  
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>text = nltk.Text(tokens)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
 
 We can also it normalizes all the words to lowercase, which makes it possible to
 count word frequencies.
@@ -316,10 +325,11 @@ Python2: >>>print fdist0
 Python3: >>>print(fdist0.most_common(20))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Our word list, however, still contains common English worlds "the", "of", "a",
-"to" and punctuation. This next stepuses our stopword list created above to
-strip the list of words. I've also only returned words larger than 1 characters
-as this reduces some of the noise showing up in the word frequencies.
+Our word list, however, just lists a range of common English worlds "the", "of",
+"a", "to" and punctuation. The next step uses our stopword list created above to
+strip out common words and punctuation from our list of words. We will also only
+return words larger than 1 characters as this reduces some of the noise showing
+up in the word frequencies.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>filtered_words = [w for w in words if not w in stopword or len(w) > 1]
@@ -345,7 +355,7 @@ Python3: >>>print(fdist1.most_common(20))
 
  
 
-Next we canproduce a vocabulary of words used in the text by discarding all
+Next we can produce a vocabulary of words used in the text by discarding all
 duplicates and sorting the results.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -388,11 +398,11 @@ or nature. Feel free to add a third or fourth concordance:
 
  
 
-This function adds part of speech tags to 801 word tokens. This is a slow,
-computationally intensive, task, so we can limited to a small sample. This is an
-important step in an NLP pipeline, as more complicated tasks, such as Named
-Entity Recognition reply on part of speech tags. We could also explore the most
-frequently used verbs or nouns in this text with a little more coding.
+The pos\_tag function adds part of speech tags to 801 word tokens. This is a
+slow, computationally intensive, task, so we can limited to a small sample. This
+is an important step in an NLP pipeline, as more complicated tasks, such as
+Named Entity Recognition reply on part of speech tags. We could also explore the
+most frequently used verbs or nouns in this text with a little more coding.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>nltk.pos_tag(tokens[200:1000])
@@ -468,7 +478,7 @@ Number of tokens:
 
  
 
-Text:
+Create a NLTK Text:
 
  
 
