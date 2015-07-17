@@ -50,7 +50,7 @@ print "The number of characters in the book:"
 print len(raw)
 
 #This tokenizer using the regular expressions above to break the text in too a list of word tokens.
-tokens = nltk.regexp_tokenize(raw, pattern)
+tokens = tokens = nltk.word_tokenize(raw)
 #We can measure the number of characters in the book:
 print "The number of tokens in the book:"
 print len(tokens)

@@ -31,11 +31,12 @@ Python 2.7 and 3.x:
 
 There are two versions of Python 2.7 and 3.x. Version 2.7 is no longer
 developed, but a lot of older code still relies on it. The most recent version
-of the NLTK has been adapted for Python 3, so this lesson will use version 3.
-You may need to install the new version if you’ve done the other Python lessons
-on this website. You can install both versions on your computer and use them
-both. The most noticeable change is that the print command requrieds brackets in
-version 3: print(“Hello World”).
+of the NLTK has been adapted for Python 3, so this lesson includes instructions
+to use both versions. If you’d like to try Version 3.\# may need to install the
+new version if you’ve done the other Python lessons on this website. You can
+install both versions on your computer and use them both. The most noticeable
+change is that the print command requrieds brackets in version 3: print(“Hello
+World”).
 
 1.  Installing Python 3 on Windows:
     <http://www.howtogeek.com/197947/how-to-install-python-on-windows/>
@@ -127,8 +128,11 @@ Console again and follow these instructions (from
 The internet is a massive and growing archive for humanities research. The
 Internet Archive (Archive.org) is the largest archive in the world and it is
 easy to search and bulk download thousands of historical documents from this
-website. In October 2012, its collection topped 10 petabytes. In this workshop
-we’ll be looking at Karl Marx’s
+website. In October 2012, its collection topped 10 petabytes.
+
+ 
+
+In this workshop we’ll be looking at Karl Marx’s
 [Capital](<https://archive.org/details/capitalcritiqueo00marx>) and Adam Smith’s
 [Wealth of Nations](<https://archive.org/details/WealthOfNationsAdamSmith>):
 
@@ -147,19 +151,13 @@ we’ll be looking at Karl Marx’s
 
  
 
-You can use the link above and cut and past the whole code and run it on your
-machine, but it is a better learning experience if you work step by step, either
-in the Python Console or by creating a new .py file in PyCharm (*File - New -
-Python File*) and running the program each time you add a step.
-
- 
-
 Each time we start working with Python we need to import the packages we will
 use. Here we import urllib2 so Python can read websites, Beautifulsoup to
 download and convert the webpage to raw text and nltk to process the raw text.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import urllib2
+Python2: import urllib2
+Python3: import urllib.request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -202,14 +200,7 @@ stopword.extend(punk)
 
 **With those basics prepared, the script starts here:**
 
- 
-
-This print command simply prints "Karl Marx Capital" to let us know the program
-is starting with this book:
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print("Karl Marx Capital")
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We are going to start by downloading an English translation of Karl Marx’s
 
  
 
@@ -238,8 +229,10 @@ raw = soup.pre.string
 We can measure the number of characters in the book:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(len(raw))
+len(raw)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
 
 This tokenizer breaks the text in too a list of word tokens.
 
@@ -252,7 +245,7 @@ tokens = nltk.word_tokenize(raw)
 We can measure the number of characters in the book:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(len(tokens))
+len(tokens)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This next steps does two things. It creates a NLTK "Text" from the tokens, which
@@ -272,7 +265,7 @@ words = [w.lower() for w in text]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(words[100:200])
+words[100:200]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is not particularly useful, but now that we have a list of all of the words
@@ -284,7 +277,8 @@ fdist0 = nltk.FreqDist(words)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print fdist0.most_common(20)
+Python2: print fdist0
+Python3: print(fdist0.most_common(20))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Our word list, however, still contains common English worlds "the", "of", "a",
@@ -293,19 +287,11 @@ strip the list of words. I've also only returned words larger than 1 characters
 as this reduces some of the noise showing up in the word frequencies.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-filtered_words = [w for w in words if not w in stopword]
+filtered_words = [w for w in words if not w in stopword or len(w) > 1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#filtered_words = [w for w in filtered_words if not w in punk]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-filtered_words = [w for w in filtered_words if len(w) > 1]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(filtered_words[500:600])
+filtered_words[500:600]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -314,15 +300,12 @@ We can now uses the Frequency Distribution function again to determine the most
 frequent words in the filtered list:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print "WORD FREQUENCY of Filtered Words:"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 fdist1 = nltk.FreqDist(filtered_words)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(fdist1.most_common(20))
+Python2: print fdist1
+Python3: print(fdist1.most_common(20))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -335,7 +318,7 @@ vocab = sorted(set(filtered_words))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(vocab[500:600])
+vocab[500:600]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -347,7 +330,7 @@ hyphonations from the OCR process as a few split words show up in the
 collocations results:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.collocations())
+text.collocations()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -357,15 +340,15 @@ context. It give us a quick way to check the context of key terms like freedom
 or nature. Feel free to add a third or fourth concordance:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.concordance('freedom'))
+text.concordance('freedom')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.concordance('nature'))
+text.concordance('nature')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.concordance('**add your own word here**'))
+text.concordance('**add your own word here**')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -377,7 +360,7 @@ Entity Recognition reply on part of speech tags. We could also explore the most
 frequently used verbs or nouns in this text with a little more coding.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(nltk.pos_tag(tokens[200:1000]))
+nltk.pos_tag(tokens[200:1000])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -386,7 +369,7 @@ This regular expression searches through the text and provides us with the words
 found before the word man in the text:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.findall(r" (<.*>) <man>"))
+text.findall(r" (<.*>) <man>")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -429,7 +412,7 @@ raw = soup.pre.string
 Raw text length:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(len(raw))
+len(raw)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -445,7 +428,7 @@ tokens = nltk.word_tokenize(raw)
 Number of tokens:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(len(tokens))
+len(tokens)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -471,19 +454,11 @@ words = [w.lower() for w in text]
 Filtered words:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-filtered_words = [w for w in words if not w in stopword]
+filtered_words = [w for w in words if not w in stopword or len(w) > 1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#filtered_words = [w for w in filtered_words if not w in punk]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-filtered_words = [w for w in filtered_words if len(w) > 1]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(filtered_words[500:600])
+filtered_words[500:600]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -495,7 +470,8 @@ fdist1 = nltk.FreqDist(filtered_words)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(fdist1.most_common(20))
+Python2: print fdist1
+Python3: print(fdist1.most_common(20))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -507,7 +483,7 @@ vocab = sorted(set(filtered_words))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(vocab[500:600])
+vocab[500:600]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -515,7 +491,7 @@ print(vocab[500:600])
 Collocations:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.collocations())
+text.collocations()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -523,15 +499,15 @@ print(text.collocations())
 Concordances::
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.concordance('freedom'))
+text.concordance('freedom')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.concordance('nature'))
+text.concordance('nature')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.concordance('**add your own word here**'))
+text.concordance('**add your own word here**')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -539,7 +515,7 @@ print(text.concordance('**add your own word here**'))
 Part of Speech Tagging.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(nltk.pos_tag(tokens[200:1000]))
+nltk.pos_tag(tokens[200:1000])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -547,7 +523,7 @@ print(nltk.pos_tag(tokens[200:1000]))
 Words before man:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-print(text.findall(r" (<.*>) <man>"))
+text.findall(r" (<.*>) <man>")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -563,14 +539,21 @@ text.dispersion_plot(["labour", "democracy", "freedom", "capital", "nature"])
 
  
 
-### **Final Challange:​**
+### **Challanges:​**
 
-Can you use the Word Frequency, Collocations and/or Concordance tools from this
-lesson with the bulk downloading lessons
-([Wget](<http://programminghistorian.org/lessons/automated-downloading-with-wget>)
-or [Internet
-Archive](<http://programminghistorian.org/lessons/data-mining-the-internet-archive>))
-to quickly explore more than a thousand Internet Archive texts?
+1.  Can you write the code above into a short program in a text editor that will
+    work on any Internet Archive plain text URL?
+
+    -   Tips: you’ll need to add print commands and you might want to add
+        "input("Press Enter to continue…”)” between the steps so the program
+        pauses and allows you to read the results.
+
+2.  Can you use the Word Frequency, Collocations and/or Concordance tools from
+    this lesson with the bulk downloading lessons
+    ([Wget](<http://programminghistorian.org/lessons/automated-downloading-with-wget>)
+    or [Internet
+    Archive](<http://programminghistorian.org/lessons/data-mining-the-internet-archive>))
+    to quickly explore more than a thousand Internet Archive texts?
 
  
 
