@@ -18,7 +18,7 @@ encouraging digital historians to work through this fantastic resource.
 -   <http://www.nltk.org/>
 
 -   Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with
-    Pythoy*, <http://www.nltk.org/book>
+    Python*, <http://www.nltk.org/book>
 
 \*NLTK has been updated to Version 3 and the publish book uses Version 2. The
 authors are currently updating the book and plan to publish a second edition in
@@ -35,7 +35,7 @@ to use it. The most recent version of the NLTK has been adapted for Python 3, so
 this lesson includes instructions to use both versions. If you’d like to try
 Version 3.\# may need to install the new version if you’ve done the other Python
 lessons on this website. You can install both versions on your computer and use
-them both. The most noticeable change is that the print command requrieds
+them both. The most noticeable change is that the print command requires
 brackets in version 3: print(“Hello World”).
 
 1.  Programing Historian instructions on installing Python 2.7:
@@ -112,8 +112,8 @@ to get it and Beautiful Soup installed.
 1.  Next, check to see if you have Beautiful Soup already installed from a
     pervious lesson.
 
-2.  From the Python consoul, try ‘import bs4’ and hit enter to check Beautiful
-    Soup is installed.
+2.  From the Python command line or Shell, try ‘import bs4’ and hit enter to
+    check Beautiful Soup is installed.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>import bs4
@@ -252,8 +252,8 @@ return the HTML code:
 -   *You can cut and past the address to a different Internet Archive text here
     and explore the results.*
 
-I checked the source HTML code and found that the \<pre\> tag comes after all of
-the website preamble that we don't want to include. This command searches
+We can check the source HTML code and find that the \<pre\> tag comes after all
+of the website preamble that we don't want to include. This command searches
 through the string of HTML data and finds the location of the \<pre\> tag and
 returns the [text
 string](<http://en.wikipedia.org/wiki/String_%28computer_science%29>) from that
@@ -371,7 +371,7 @@ duplicates and sorting the results.
 The Collocations command is really helpful, as it finds the most common word
 pairs in the text, which can provide some insight into the topics covered in the
 book. You'll notice, however, we still have some issues with end of line
-hyphonations from the OCR process as a few split words show up in the
+hyphenations from the OCR process as a few split words show up in the
 collocations results:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -434,7 +434,7 @@ different words appear in the text:
 ### Same again for Adam Smith:
 
 You can now explore a second classic economic text and decide whether the
-resutls are notably different from Marx’s *Capital*.
+results are notably different from Marx’s *Capital*.
 
  
 
@@ -584,7 +584,7 @@ Disperson Plot:
 
  
 
-### **Challanges:​**
+### **Challenges:​**
 
 1.  Can you write the code above into a short program in a text editor that will
     work on any Internet Archive plain text URL?
@@ -606,8 +606,8 @@ Disperson Plot:
 
 Once again, this lesson only touched the surface of the power of the NLTK
 package and did not introduce you to the field of computational linguistics**​**.
-The NLTK book is avalible for [free online](<http://www.nltk.org/book/>) or
+The NLTK book is available for [free online](<http://www.nltk.org/book/>) or
 through major online books stores (wait until the revised second edition comes
 out in early 2016 if you’d like to buy a paper copy). It provides a great crash
-course in natural language processing and provides an opertunity to further
+course in natural language processing and provides an opportunity to further
 develop your Python skills.
