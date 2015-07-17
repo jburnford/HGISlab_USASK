@@ -27,7 +27,7 @@ chapters that are still works in progress.
 
 ### Installing Python:
 
-[Python 2.7](<https://www.python.org>)** **and 3.x:
+Python 2.7 and 3.x:
 
 There are two versions of Python 2.7 and 3.x. Version 2.7 is no longer
 developed, but a lot of older code still relies on it. The most recent version
@@ -37,46 +37,56 @@ on this website. You can install both versions on your computer and use them
 both. The most noticeable change is that the print command requrieds brackets in
 version 3: print(“Hello World”).
 
+1.  Installing Python 3 on Windows:
+    <http://www.howtogeek.com/197947/how-to-install-python-on-windows/>
+
+2.  Windows users might also consider installing Cygwin, which makes it easy to
+    work with a range of opensource software (Get that Linux feeling - on
+    Windows):< http://cygwin.com/>
+
+3.  Installling Python 3 on Mac OSX (Mac comes with 2.7 installed, but it is
+    easy to add the latest release of version 3):
+    <https://docs.python.org/3/using/mac.html>
+
+4.  Both versions of Python normally come preinstalled on Linux:
+    <https://docs.python.org/3/using/unix.html>
+
  
 
-### Installing NLTK and BeautifulSoup: 
+### Installing NLTK and BeautifulSoup:
 
 Python has a core language and then packages that extent the language for other
 uses. This tutorial uses the Natural Language Toolkit or NLTK for text mining
-and we need to get it and a few more standard packages installed
+and we need to get it and Beautiful Soup installed.
 
- 
+1.   
 
-1.  The NLTK website provides instructions on installing their package and Numpy
+2.  The NLTK website provides instructions on installing their package and Numpy
     on Mac/Linux or Windows machines: <http://www.nltk.org/install.html>
 
-2.  to check that it all worked, launch your terminal and start by launching
-    Python3 and try to import nltk:
+3.  to check that it all worked, launch your terminal and start by launching
+    Python3 and try to import nltk and hit enter. If you don’t get an error it
+    worked:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>python3
 import nltk 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1.  and hit enter. If you don’t get an error it worked.
+1.  Next, check to see if you have Beautiful Soup already installed from a
+    pervious lesson.
 
-2.  Check to see if you have Beautiful Soup already installed from a pervious
-    lesson.
-
-3.  From the Python consoul, try ‘import bs4’ to check Beautiful Soup is
-    installed.
+2.  From the Python consoul, try ‘import bs4’ and hit enter to check Beautiful
+    Soup is installed.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import bs4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1.  and hit enter
-
-2.  If you get an error, visit the "[Intro to Beautiful
+1.  If you get an error, visit the "[Intro to Beautiful
     Soup](<http://programminghistorian.org/lessons/intro-to-beautiful-soup>)"
     lesson for instructions on installing beautifulsoup4
 
-### 
 NLTK Data:
 
 NLTK also provides some data that we’ll use in the workshop. Use the Python
