@@ -30,20 +30,26 @@ chapters that are still works in progress.
 Python 2.7 and 3.x:
 
 There are two versions of Python 2.7 and 3.x. Version 2.7 is no longer
-developed, but a lot of older code still relies on it. The most recent version
-of the NLTK has been adapted for Python 3, so this lesson includes instructions
-to use both versions. If you’d like to try Version 3.\# may need to install the
-new version if you’ve done the other Python lessons on this website. You can
-install both versions on your computer and use them both. The most noticeable
-change is that the print command requrieds brackets in version 3: print(“Hello
-World”).
+developed, but a lot of older code still relies on it and many people continue
+to use it. The most recent version of the NLTK has been adapted for Python 3, so
+this lesson includes instructions to use both versions. If you’d like to try
+Version 3.\# may need to install the new version if you’ve done the other Python
+lessons on this website. You can install both versions on your computer and use
+them both. The most noticeable change is that the print command requrieds
+brackets in version 3: print(“Hello World”).
 
-1.  Installing Python 3 on Windows:
+1.  Programing Historian instructions on installing Python 2.7:
+    <http://programminghistorian.org/lessons/introduction-and-installation>
+
+    -   This lesson works with Python from the command line or a Python Shell
+        and does not require Komodo edit.
+
+2.  Installing Python 3 on Windows:
     <http://www.howtogeek.com/197947/how-to-install-python-on-windows/>
 
-2.  Windows users might also consider installing Cygwin, which makes it easy to
-    work with a range of opensource software (Get that Linux feeling - on
-    Windows):< http://cygwin.com/>
+    -   Windows users might also consider installing Cygwin, which makes it easy
+        to work with a range of opensource software (Get that Linux feeling - on
+        Windows):< http://cygwin.com/>
 
 3.  Installling Python 3 on Mac OSX (Mac comes with 2.7 installed, but it is
     easy to add the latest release of version 3):
@@ -54,24 +60,53 @@ World”).
 
  
 
+If you are on a Mac or Linux machine, lauch terminal and start working with
+Python throught he command line:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$python
+Python 2.7.6 (default, Sep  9 2014, 15:04:36) 
+[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+
+or 
+
+$python3
+Python 3.4.3 (v3.4.3:9b73f1c3e601, Feb 23 2015, 02:52:03) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+
+You can also choose to use the Python Shell
+
+Search for IDLE in your Mac Search Bar or Python in your Window’s Start Menu
+search.
+
+ 
+
 ### Installing NLTK and BeautifulSoup:
 
 Python has a core language and then packages that extent the language for other
 uses. This tutorial uses the Natural Language Toolkit or NLTK for text mining
 and we need to get it and Beautiful Soup installed.
 
-1.   
+ 
 
-2.  The NLTK website provides instructions on installing their package and Numpy
-    on Mac/Linux or Windows machines: <http://www.nltk.org/install.html>
+1.  The NLTK website provides instructions on installing their package and Numpy
+    on Mac/Linux or Windows machines: <http://www.nltk.org/install.html >
 
-3.  to check that it all worked, launch your terminal and start by launching
-    Python3 and try to import nltk and hit enter. If you don’t get an error it
+    -   (for Windows, be sure to choose the .exe MS Windows installer)
+
+2.  To double check that it all worked, launch Python in your terminal or Python
+    Shell and try to import nltk and hit enter. If you don’t get an error it
     worked:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>>python3
-import nltk 
+>>>import nltk 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1.  Next, check to see if you have Beautiful Soup already installed from a
@@ -81,7 +116,7 @@ import nltk
     Soup is installed.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import bs4
+>>>import bs4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1.  If you get an error, visit the "[Intro to Beautiful
@@ -156,20 +191,20 @@ use. Here we import urllib2 so Python can read websites, Beautifulsoup to
 download and convert the webpage to raw text and nltk to process the raw text.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Python2: import urllib2
-Python3: import urllib.request
+Python2: >>>import urllib2
+Python3: >>>import urllib.request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-from bs4 import BeautifulSoup
+>>>from bs4 import BeautifulSoup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import nltk
+>>>import nltk
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-from nltk.corpus import stopwords
+>>>from nltk.corpus import stopwords
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -183,15 +218,15 @@ I've also chosen to strip punctuation when removing stopwords. I add this list
 of punctuation to the end of a list of stopwords provided by the NLTK:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-punk = [".", ",", ";", "\"", "\'", "?", "(", ")", ":", "-", "_", "`","''","``","—","...","&"]
+>>>punk = [".", ",", ";", "\"", "\'", "?", "(", ")", ":", "-", "_", "`","''","``","—","...","&"]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-stopword = stopwords.words('english')
+>>>stopword = stopwords.words('english')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-stopword.extend(punk)
+>>>stopword.extend(punk)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -207,7 +242,7 @@ We are going to start by downloading an English translation of Karl Marx’s
 This opens and reads the website, returning the HTML code
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-soup = BeautifulSoup(urllib2.urlopen("http://archive.org/stream/capitalcritiqueo00marx/capitalcritiqueo00marx_djvu.txt").read())
+>>>soup = BeautifulSoup(urllib2.urlopen("http://archive.org/stream/capitalcritiqueo00marx/capitalcritiqueo00marx_djvu.txt").read())
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   *You can cut and past the address to a different Internet Archive text here
@@ -221,7 +256,7 @@ string](<http://en.wikipedia.org/wiki/String_%28computer_science%29>) from that
 point forward. We now have the long raw text of Marx's Capital.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-raw = soup.pre.string
+>>>raw = soup.pre.string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -229,7 +264,7 @@ raw = soup.pre.string
 We can measure the number of characters in the book:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-len(raw)
+>>>len(raw)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -237,7 +272,7 @@ len(raw)
 This tokenizer breaks the text in too a list of word tokens.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tokens = nltk.word_tokenize(raw)
+>>>tokens = nltk.word_tokenize(raw)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -245,7 +280,7 @@ tokens = nltk.word_tokenize(raw)
 We can measure the number of characters in the book:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-len(tokens)
+>>>len(tokens)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This next steps does two things. It creates a NLTK "Text" from the tokens, which
@@ -254,18 +289,18 @@ allows us to preform other NLTK functions.
  
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text = nltk.Text(tokens)
+>>>text = nltk.Text(tokens)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We can also it normalizes all the words to lowercase, which makes it possible to
 count word frequencies.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-words = [w.lower() for w in text]
+>>>words = [w.lower() for w in text]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-words[100:200]
+>>>words[100:200]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is not particularly useful, but now that we have a list of all of the words
@@ -273,12 +308,12 @@ in the book, we can quickly list the most frequent words to see it they provide
 any useful information.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fdist0 = nltk.FreqDist(words)
+>>>fdist0 = nltk.FreqDist(words)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Python2: print fdist0
-Python3: print(fdist0.most_common(20))
+Python2: >>>print fdist0
+Python3: >>>print(fdist0.most_common(20))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Our word list, however, still contains common English worlds "the", "of", "a",
@@ -287,11 +322,11 @@ strip the list of words. I've also only returned words larger than 1 characters
 as this reduces some of the noise showing up in the word frequencies.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-filtered_words = [w for w in words if not w in stopword or len(w) > 1]
+>>>filtered_words = [w for w in words if not w in stopword or len(w) > 1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-filtered_words[500:600]
+>>>filtered_words[500:600]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -300,12 +335,12 @@ We can now uses the Frequency Distribution function again to determine the most
 frequent words in the filtered list:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fdist1 = nltk.FreqDist(filtered_words)
+>>>fdist1 = nltk.FreqDist(filtered_words)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Python2: print fdist1
-Python3: print(fdist1.most_common(20))
+Python2: >>>print fdist1
+Python3: >>>print(fdist1.most_common(20))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -314,11 +349,11 @@ Next we canproduce a vocabulary of words used in the text by discarding all
 duplicates and sorting the results.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-vocab = sorted(set(filtered_words))
+>>>vocab = sorted(set(filtered_words))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-vocab[500:600]
+>>>vocab[500:600]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -330,7 +365,7 @@ hyphonations from the OCR process as a few split words show up in the
 collocations results:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.collocations()
+>>>text.collocations()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -340,15 +375,15 @@ context. It give us a quick way to check the context of key terms like freedom
 or nature. Feel free to add a third or fourth concordance:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.concordance('freedom')
+>>>text.concordance('freedom')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.concordance('nature')
+>>>text.concordance('nature')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.concordance('**add your own word here**')
+>>>text.concordance('**add your own word here**')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -360,7 +395,7 @@ Entity Recognition reply on part of speech tags. We could also explore the most
 frequently used verbs or nouns in this text with a little more coding.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-nltk.pos_tag(tokens[200:1000])
+>>>nltk.pos_tag(tokens[200:1000])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -369,7 +404,7 @@ This regular expression searches through the text and provides us with the words
 found before the word man in the text:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.findall(r" (<.*>) <man>")
+>>>text.findall(r" (<.*>) <man>")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -378,7 +413,7 @@ This final function creates a text dispersion graph that shows us where
 different words appear in the text:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.dispersion_plot(["labour", "democracy", "freedom", "capital", "nature"])
+>>>text.dispersion_plot(["labour", "democracy", "freedom", "capital", "nature"])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   *Try changing the search terms, but make sure you keep the syntax the same
@@ -396,7 +431,7 @@ resutls are notably different from Marx’s *Capital*.
 Download the book using BeautifulSoup:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-soup = BeautifulSoup(urllib2.urlopen("https://archive.org/stream/WealthOfNationsAdamSmith/Wealth%20of%20Nations_Adam%20Smith_djvu.txt").read())
+>>>soup = BeautifulSoup(urllib2.urlopen("https://archive.org/stream/WealthOfNationsAdamSmith/Wealth%20of%20Nations_Adam%20Smith_djvu.txt").read())
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -404,7 +439,7 @@ soup = BeautifulSoup(urllib2.urlopen("https://archive.org/stream/WealthOfNations
 Identify the raw text:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-raw = soup.pre.string
+>>>raw = soup.pre.string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -412,7 +447,7 @@ raw = soup.pre.string
 Raw text length:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-len(raw)
+>>>len(raw)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -420,7 +455,7 @@ len(raw)
 Tokenize:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tokens = nltk.word_tokenize(raw)
+>>>tokens = nltk.word_tokenize(raw)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -428,7 +463,7 @@ tokens = nltk.word_tokenize(raw)
 Number of tokens:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-len(tokens)
+>>>len(tokens)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -438,7 +473,7 @@ Text:
  
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text = nltk.Text(tokens)
+>>>text = nltk.Text(tokens)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -446,7 +481,7 @@ text = nltk.Text(tokens)
 Lower case words:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-words = [w.lower() for w in text]
+>>>words = [w.lower() for w in text]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -454,11 +489,11 @@ words = [w.lower() for w in text]
 Filtered words:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-filtered_words = [w for w in words if not w in stopword or len(w) > 1]
+>>>filtered_words = [w for w in words if not w in stopword or len(w) > 1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-filtered_words[500:600]
+>>>filtered_words[500:600]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -466,12 +501,12 @@ filtered_words[500:600]
 Frequency Distribution (filtered):
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-fdist1 = nltk.FreqDist(filtered_words)
+>>>fdist1 = nltk.FreqDist(filtered_words)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Python2: print fdist1
-Python3: print(fdist1.most_common(20))
+Python2: >>>print fdist1
+Python3: >>>print(fdist1.most_common(20))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -479,11 +514,11 @@ Python3: print(fdist1.most_common(20))
 Vocabulary:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-vocab = sorted(set(filtered_words))
+>>>vocab = sorted(set(filtered_words))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-vocab[500:600]
+>>>vocab[500:600]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -491,7 +526,7 @@ vocab[500:600]
 Collocations:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.collocations()
+>>>text.collocations()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -499,15 +534,15 @@ text.collocations()
 Concordances::
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.concordance('freedom')
+>>>text.concordance('freedom')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.concordance('nature')
+>>>text.concordance('nature')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.concordance('**add your own word here**')
+>>>text.concordance('**add your own word here**')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -515,7 +550,7 @@ text.concordance('**add your own word here**')
 Part of Speech Tagging.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-nltk.pos_tag(tokens[200:1000])
+>>>nltk.pos_tag(tokens[200:1000])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -523,7 +558,7 @@ nltk.pos_tag(tokens[200:1000])
 Words before man:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.findall(r" (<.*>) <man>")
+>>>text.findall(r" (<.*>) <man>")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -531,7 +566,7 @@ text.findall(r" (<.*>) <man>")
 Disperson Plot:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-text.dispersion_plot(["labour", "democracy", "freedom", "capital", "nature"])
+>>>text.dispersion_plot(["labour", "democracy", "freedom", "capital", "nature"])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   *Try changing the search terms, but make sure you keep the syntax the same
