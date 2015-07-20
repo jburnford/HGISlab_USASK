@@ -53,9 +53,7 @@ brackets in version 3: print(“Hello World”).
 
 4.  Both versions of Python normally come preinstalled on Linux. For more information, [visit this site](https://docs.python.org/3/using/unix.html).
 
-**
-Ian: Jim, maybe you should give a quick refresh on where they'll find their terminal?
-**
+**Ian: Jim, maybe you should give a quick refresh on where they'll find their terminal?**
 
 If you are on a Mac or Linux machine, launch your terminal and start working with
 Python through the command line:
