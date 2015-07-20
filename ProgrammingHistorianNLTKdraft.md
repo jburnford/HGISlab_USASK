@@ -1,31 +1,31 @@
 **Basic Introduction to the Natural Language Toolkit**
 ------------------------------------------------------
 
- 
+**Ian comment: I put my comments in bold throughout. I think a big early one is to really sell why the NLTK shines? It can do some things that other packages don't offer, but other things will be familiar to users - i.e. word frequency, normalizing by lowercasing, etc. Another paragraph really selling the utility of this might help. Maybe an example from your own research?**
 
 This lesson is intended to introduce some of the basic features of the [Natural
 Language Toolkit (NLTK)](<http://www.nltk.org/>), which is "a leading platform
-for building Python programs to work with human language data”. The NLTK is a
+for building Python programs to work with human language data.” The NLTK is a
 Python package that adds a wide range of functions and tools that can be used
 for text mining historical sources. It also includes a wide range of data, from
 multilingual stopword lists to large test corpus, some of which are particularly
 useful for testing digital history methods (such as the Inaugural Address
 corpus). This lesson is relatively brief, as there is an excellent open access
 book\* written by the NLTK developers that introduces natural language
-processing and programming in Python and this lesson will conclude by
+processing and programming in Python. This lesson will conclude by
 encouraging digital historians to work through this fantastic resource.
 
 -   <http://www.nltk.org/>
 
--   Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with
-    Python*, <http://www.nltk.org/book>
+-   Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with Python*, <http://www.nltk.org/book>
 
-\*NLTK has been updated to Version 3 and the publish book uses Version 2. The
+\*NLTK has been updated to Version 3 and the published book uses Version 2. The
 authors are currently updating the book and plan to publish a second edition in
-early 2016. The online version includes most of the updates and flags the
-chapters that are still works in progress.
+early 2016. The online version has incorporated most of the updates and flags the chapters that are still works in progress.
 
 ### Installing Python:
+
+**Comment from Ian: Could you give a bit more guidance to users here? Do you think they should dive right ahead and move on to Python 3? Or is 2.7 sufficient to get through your lessons? I think you want to be upfront.**
 
 Python 2.7 and 3.x:
 
@@ -38,29 +38,24 @@ lessons on this website. You can install both versions on your computer and use
 them both. The most noticeable change is that the print command requires
 brackets in version 3: print(“Hello World”).
 
-1.  Programing Historian instructions on installing Python 2.7:
-    <http://programminghistorian.org/lessons/introduction-and-installation>
+1.  [Programing Historian instructions on installing Python 2.7](http://programminghistorian.org/lessons/introduction-and-installation):
 
     -   This lesson works with Python from the command line or a Python Shell
         and does not require Komodo edit.
 
-2.  Installing Python 3 on Windows:
-    <http://www.howtogeek.com/197947/how-to-install-python-on-windows/>
+2.  [Installing Python 3 on Windows](http://www.howtogeek.com/197947/how-to-install-python-on-windows/):
 
-    -   Windows users might also consider installing Cygwin, which makes it easy
-        to work with a range of opensource software (Get that Linux feeling - on
-        Windows):< http://cygwin.com/>
+    -   Windows users might also consider installing [Cygwin](http://cygwin.com/), which makes it easy
+        to work with a range of opensource software. Its tagline: "Get that Linux feeling - on Windows."
 
 3.  Installing Python 3 on Mac OSX (Mac comes with 2.7 installed, but it is easy
-    to add the latest release of version 3):
-    <https://docs.python.org/3/using/mac.html>
+    to add the latest release of version 3): [Find the documentation here](https://docs.python.org/3/using/mac.html).
 
-4.  Both versions of Python normally come preinstalled on Linux:
-    <https://docs.python.org/3/using/unix.html>
+4.  Both versions of Python normally come preinstalled on Linux. For more information, [visit this site](https://docs.python.org/3/using/unix.html).
 
- 
+**Ian: Jim, maybe you should give a quick refresh on where they'll find their terminal?**
 
-If you are on a Mac or Linux machine, launch terminal and start working with
+If you are on a Mac or Linux machine, launch your terminal and start working with
 Python through the command line:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,20 +76,21 @@ Type "help", "copyright", "credits" or "license" for more information.
 
  
 
-You can also choose to use the Python Shell
+You can also choose to use the Python Shell.
 
-Search for IDLE in your Mac Search Bar or Python in your Window’s Start Menu
-search.
+Search for IDLE in your Mac Search Bar or Python in your Windows Start Menu
+search. **Ian: this won't work on all systems unless it's set up - doesn't work on mine**
 
  
 
 ### Installing NLTK and BeautifulSoup:
 
-Python has a core language and then packages that extent the language. This
+Python has a core language and then packages that extend the language. This
 tutorial uses the Natural Language Toolkit or NLTK for text mining and we need
 to get it and Beautiful Soup installed.
 
- 
+
+**Ian comment: Make your links in text rather than just the raw URL. I think you should give a bit more information on the install - OS X users might get thrown off with the Numpy install?**
 
 1.  The NLTK website provides instructions on installing their package and Numpy
     on Mac/Linux or Windows machines: <http://www.nltk.org/install.html.>
@@ -134,7 +130,9 @@ Console again and follow these instructions (from
 >>> nltk.download()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
->   A new window should open, showing the NLTK Downloader. Click on the File
+**Ian: This formatting here is a bit ugly. Maybe make it clear after the command line that this is cribbed from another site. Why not paraphrase into your own words with credit. Is this section not applicable to non-Windows users?**
+
+    A new window should open, showing the NLTK Downloader. Click on the File
 >   menu and select Change Download Directory. For central installation, set
 >   this to C:\\nltk\_data (Windows), or/usr/share/nltk\_data (Mac, Unix). Next,
 >   select the packages or collections you want to download: **[Everything Used
@@ -164,6 +162,8 @@ The internet is a massive and growing archive for humanities research. The
 Internet Archive (Archive.org) is the largest archive in the world and it is
 easy to search and bulk download thousands of historical documents from this
 website. In October 2012, its collection topped 10 petabytes.
+
+**Ian comment: I would link this to the existing tutorial on ia-python, jsut for more information**
 
  
 
@@ -237,7 +237,7 @@ We can add punctuation to the list of stopwords:
 
  
 
-We can now= start by downloading an English translation of Karl Marx’s Capital.
+We can now start by downloading an English translation of Karl Marx’s Capital.
 
  
 
@@ -582,6 +582,7 @@ Disperson Plot:
 -   *Try changing the search terms, but make sure you keep the syntax the same
     with quotation marks and commas.*
 
+**Ian comment: Good example commands, although I think each needs a bit more information. What's a dispersion plot, for example, and same for everything. I don't think we need lots of content, but a few sentences for each. i.e. what's a "token"?**
  
 
 ### **Challenges:​**
