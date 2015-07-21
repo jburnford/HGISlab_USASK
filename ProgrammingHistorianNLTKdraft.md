@@ -1,23 +1,105 @@
 **Basic Introduction to the Natural Language Toolkit**
 ------------------------------------------------------
 
-**Ian comment: I put my comments in bold throughout. I think a big early one is to really sell why the NLTK shines? It can do some things that other packages don't offer, but other things will be familiar to users - i.e. word frequency, normalizing by lowercasing, etc. Another paragraph really selling the utility of this might help. Maybe an example from your own research?**
+**Ian comment: I put my comments in bold throughout. I think a big early one is
+to really sell why the NLTK shines? It can do some things that other packages
+don't offer, but other things will be familiar to users - i.e. word frequency,
+normalizing by lowercasing, etc. Another paragraph really selling the utility of
+this might help. Maybe an example from your own research?**
 
-This lesson is intended to introduce some of the basic features of the [Natural Language Toolkit (NLTK)](<http://www.nltk.org/>), which is "a leading platform for building Python programs to work with human language data.” The NLTK is a Python package that adds a wide range of functions and tools that can be used for text mining historical sources. This includes basic processes such as breaking a text into paragraph, sentence and/or word tokens, through to more advanced sentement analysis or part of speech tagging and named entity recognition. It also includes a wide range of data, from multilingual stopword lists to large test corpus, some of which are particularly useful for testing digital history methods (such as the Inaugural Address corpus). This lesson is relatively brief, as there is an excellent open access book\* written by the NLTK developers that introduces natural language processing and programming in Python. This lesson will conclude by encouraging digital historians to work through this fantastic resource.
+This lesson is intended to introduce some of the basic features of the [Natural
+Language Toolkit (NLTK)](<http://www.nltk.org/>), which is "a leading platform
+for building Python programs to work with human language data.” The NLTK is a
+Python package that adds a wide range of functions and tools that can be used
+for text mining historical sources. This includes basic processes such as
+breaking a text into paragraph, sentence and/or word tokens, through to more
+advanced sentement analysis or part of speech tagging and named entity
+recognition. It also includes a wide range of data, from multilingual stopword
+lists to large test corpus, some of which are particularly useful for testing
+digital history methods (such as the Inaugural Address corpus). This lesson is
+relatively brief, as there is an excellent open access book\* written by the
+NLTK developers that introduces natural language processing and programming in
+Python. This lesson will conclude by encouraging digital historians to work
+through this fantastic resource.
+
+ 
+
+Before installing the NLTK and work with in through your command line, we can
+demo some of its features online.
+[Text-Processing.com](<http://text-processing.com/demo/>) allows us to text the
+tokenization, sentiment analysis and named entity chunking. I found a sentence
+with lots of people and places by searching the HANSARD 1803–2005 website for
+[Saskatoon](<http://hansard.millbanksystems.com/search/Saskatoon>).
+
+ 
+
+>   Mr. Pirie asked the Prime Minister whether he has received resolutions from
+>   Vancouver, Winnipeg, New York, St. Louis, Albany, Saskatoon, and other
+>   places, congratulating the Government on their promise to draft a measure of
+>   Scottish Home Rule; and whether he is aware of the disappointment created by
+>   the failure of the Government to implement their pledge?[^1]
+
+[^1]: <http://hansard.millbanksystems.com/commons/1914/jul/06/scottish-home-rule#S5CV0064P0_19140706_HOC_241>
+
+Tokenizer:
+
+Try cutting and pasting this text into the Tokenize Text box and click tokenize.
+Scroll down the results and look at the subtle difference between the different
+tokenizers. Some simply brack up the words by looking for a space, while others
+create tokens out of punctuation, and others still take abbreviations into
+account and in this case keep the period connected to “Mr.”. Tokenizing is fun,
+but it alone does not really help historians or digital humanists; it is a first
+step in a pipeline or series of text mining steps that build on each other and
+make it possible to extract useful information. The website demos some of these
+more advanced steps, including part of speech tagging, chunking and sentiment
+analysis.
+
+ 
+
+Tag and Chunk Text:
+
+We can use the same Hansard sentense to demo some of the Tag and Chunk Text
+tools. Cut and past it into the box and click the "Tag & Chunk”. This tool
+starts by tagging all of the token with different parts of speech and then
+extracts [noun phrase](<https://en.wikipedia.org/wiki/Noun_phrase>) chunks. The
+results from the Default Tagger & Named Entity NE Chunker are not that
+promising. Try some of the other options. The Default Tagger & IEER NE Chunker
+is a little more successful with the locations, but still makes some errors.  
 
 
+Sentiment Analysis:
+
+The NLTK is also capable of analysing wether a text is positive or negative. For
+the Sentiment Analysis demo select some reviews of 12 Years a Slave from IMDb:
+[Loved It](<http://www.imdb.com/title/tt2024544/reviews?filter=love>) & [Hated
+It](<http://www.imdb.com/title/tt2024544/reviews?filter=hate>). Cut a few
+positive and negative reviews and past them (one at a time) into the [Sentiment
+Analysis demo box](<http://text-processing.com/demo/sentiment/>). The tool
+starts by assessing whether the text is natural or polarized and if it finds it
+is polarized it estimates whether it is positive or negative. This does not work
+as effectively as close reading, but it still might be a useful tool to identify
+negative paragraphs in a large corpus of text, which you could then scrutinize
+using more traditional historical methods.
+
+ 
+
+ 
 
 -   <http://www.nltk.org/>
 
--   Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with Python*, <http://www.nltk.org/book>
+-   Steven Bird, Ewan Klein, and Edward Loper, *Natural Language Processing with
+    Python*, <http://www.nltk.org/book>
 
 \*NLTK has been updated to Version 3 and the published book uses Version 2. The
 authors are currently updating the book and plan to publish a second edition in
-early 2016. The online version has incorporated most of the updates and flags the chapters that are still works in progress.
+early 2016. The online version has incorporated most of the updates and flags
+the chapters that are still works in progress.
 
 ### Installing Python:
 
-**Comment from Ian: Could you give a bit more guidance to users here? Do you think they should dive right ahead and move on to Python 3? Or is 2.7 sufficient to get through your lessons? I think you want to be upfront.**
+**Comment from Ian: Could you give a bit more guidance to users here? Do you
+think they should dive right ahead and move on to Python 3? Or is 2.7 sufficient
+to get through your lessons? I think you want to be upfront.**
 
 Python 2.7 and 3.x:
 
@@ -30,25 +112,32 @@ lessons on this website. You can install both versions on your computer and use
 them both. The most noticeable change is that the print command requires
 brackets in version 3: print(“Hello World”).
 
-1.  [Programing Historian instructions on installing Python 2.7](http://programminghistorian.org/lessons/introduction-and-installation):
+1.  [Programing Historian instructions on installing Python
+    2.7](<http://programminghistorian.org/lessons/introduction-and-installation>):
 
     -   This lesson works with Python from the command line or a Python Shell
         and does not require Komodo edit.
 
-2.  [Installing Python 3 on Windows](http://www.howtogeek.com/197947/how-to-install-python-on-windows/):
+2.  [Installing Python 3 on
+    Windows](<http://www.howtogeek.com/197947/how-to-install-python-on-windows/>):
 
-    -   Windows users might also consider installing [Cygwin](http://cygwin.com/), which makes it easy
-        to work with a range of opensource software. Its tagline: "Get that Linux feeling - on Windows."
+    -   Windows users might also consider installing
+        [Cygwin](<http://cygwin.com/>), which makes it easy to work with a range
+        of opensource software. Its tagline: "Get that Linux feeling - on
+        Windows."
 
 3.  Installing Python 3 on Mac OSX (Mac comes with 2.7 installed, but it is easy
-    to add the latest release of version 3): [Find the documentation here](https://docs.python.org/3/using/mac.html).
+    to add the latest release of version 3): [Find the documentation
+    here](<https://docs.python.org/3/using/mac.html>).
 
-4.  Both versions of Python normally come preinstalled on Linux. For more information, [visit this site](https://docs.python.org/3/using/unix.html).
+4.  Both versions of Python normally come preinstalled on Linux. For more
+    information, [visit this site](<https://docs.python.org/3/using/unix.html>).
 
-**Ian: Jim, maybe you should give a quick refresh on where they'll find their terminal?**
+**Ian: Jim, maybe you should give a quick refresh on where they'll find their
+terminal?**
 
-If you are on a Mac or Linux machine, launch your terminal and start working with
-Python through the command line:
+If you are on a Mac or Linux machine, launch your terminal and start working
+with Python through the command line:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $python
@@ -71,7 +160,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 You can also choose to use the Python Shell.
 
 Search for IDLE in your Mac Search Bar or Python in your Windows Start Menu
-search. **Ian: this won't work on all systems unless it's set up - doesn't work on mine**
+search. **Ian: this won't work on all systems unless it's set up - doesn't work
+on mine**
 
  
 
@@ -81,8 +171,9 @@ Python has a core language and then packages that extend the language. This
 tutorial uses the Natural Language Toolkit or NLTK for text mining and we need
 to get it and Beautiful Soup installed.
 
-
-**Ian comment: Make your links in text rather than just the raw URL. I think you should give a bit more information on the install - OS X users might get thrown off with the Numpy install?**
+**Ian comment: Make your links in text rather than just the raw URL. I think you
+should give a bit more information on the install - OS X users might get thrown
+off with the Numpy install?**
 
 1.  The NLTK website provides instructions on installing their package and Numpy
     on Mac/Linux or Windows machines: <http://www.nltk.org/install.html.>
@@ -122,9 +213,14 @@ Console again and follow these instructions (from
 >>> nltk.download()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Ian: This formatting here is a bit ugly. Maybe make it clear after the command line that this is cribbed from another site. Why not paraphrase into your own words with credit. Is this section not applicable to non-Windows users?**
+**Ian: This formatting here is a bit ugly. Maybe make it clear after the command
+line that this is cribbed from another site. Why not paraphrase into your own
+words with credit. Is this section not applicable to non-Windows users?**
 
-    A new window should open, showing the NLTK Downloader. Click on the File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A new window should open, showing the NLTK Downloader. Click on the File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 >   menu and select Change Download Directory. For central installation, set
 >   this to C:\\nltk\_data (Windows), or/usr/share/nltk\_data (Mac, Unix). Next,
 >   select the packages or collections you want to download: **[Everything Used
@@ -155,7 +251,8 @@ Internet Archive (Archive.org) is the largest archive in the world and it is
 easy to search and bulk download thousands of historical documents from this
 website. In October 2012, its collection topped 10 petabytes.
 
-**Ian comment: I would link this to the existing tutorial on ia-python, jsut for more information**
+**Ian comment: I would link this to the existing tutorial on ia-python, jsut for
+more information**
 
  
 
@@ -574,8 +671,10 @@ Disperson Plot:
 -   *Try changing the search terms, but make sure you keep the syntax the same
     with quotation marks and commas.*
 
-**Ian comment: Good example commands, although I think each needs a bit more information. What's a dispersion plot, for example, and same for everything. I don't think we need lots of content, but a few sentences for each. i.e. what's a "token"?**
- 
+**Ian comment: Good example commands, although I think each needs a bit more
+information. What's a dispersion plot, for example, and same for everything. I
+don't think we need lots of content, but a few sentences for each. i.e. what's a
+"token"?**  
 
 ### **Challenges:​**
 
