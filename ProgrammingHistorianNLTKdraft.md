@@ -8,7 +8,7 @@ This lesson introduces the [Natural Language Toolkit
 Python programs to work with human language data.” The NLTK is a Python package
 that adds a wide range of functions and tools that can be used for text mining
 historical sources. This includes basic processes such as breaking a text into
-paragraph, sentence and/or word tokens, through to more advanced sentement
+paragraph, sentence and/or word tokens, through to more advanced sentiment
 analysis or part of speech tagging and named entity recognition. It also
 includes a wide range of data, from multilingual stopword lists to large test
 corpus, some of which are particularly useful for testing digital history
@@ -69,7 +69,7 @@ and sentiment analysis.
 
 **Tag and Chunk Text:**
 
-We can use the same Hansard sentense to demo some of the Tag and Chunk Text
+We can use the same Hansard sentence to demo some of the Tag and Chunk Text
 tools. Cut and past it into the box and click the "Tag & Chunk”. This tool
 starts by tagging all of the tokens with different parts of speech and then
 extracts [noun phrase](<https://en.wikipedia.org/wiki/Noun_phrase>)s. The
@@ -82,10 +82,10 @@ of the Hansard corpus to improve results further.
 
 **Sentiment Analysis:**
 
-The NLTK is also capable of analysing wether a text is positive or negative. For
-the Sentiment Analysis demo select some reviews of 12 Years a Slave from IMDb:
-[Loved It](<http://www.imdb.com/title/tt2024544/reviews?filter=love>) & [Hated
-It](<http://www.imdb.com/title/tt2024544/reviews?filter=hate>). Cut a few
+The NLTK is also capable of analysing whether a text is positive or negative.
+For the Sentiment Analysis demo select some reviews of 12 Years a Slave from
+IMDb: [Loved It](<http://www.imdb.com/title/tt2024544/reviews?filter=love>) &
+[Hated It](<http://www.imdb.com/title/tt2024544/reviews?filter=hate>). Cut a few
 positive and negative reviews and past them (one at a time) into the [Sentiment
 Analysis demo box](<http://text-processing.com/demo/sentiment/>). The tool
 starts by assessing whether the text is natural or polarized and if it finds it
@@ -124,7 +124,7 @@ working with 2.7 there is no need to make the switch to use the NLTK.
 
     -   Windows users might also consider installing
         [Cygwin](<http://cygwin.com/>), which makes it easy to work with a range
-        of opensource software. Its tagline: "Get that Linux feeling - on
+        of open source software. Its tagline: "Get that Linux feeling - on
         Windows."
 
 3.  Installing Python 3 on Mac OSX (Mac comes with 2.7 installed, but it is easy
@@ -181,7 +181,8 @@ tutorial uses the Natural Language Toolkit or NLTK for text mining and we need
 to get it and Beautiful Soup installed.
 
 1.  The NLTK website provides instructions on installing their package and Numpy
-    on Mac/Linux or Windows machines: <http://www.nltk.org/install.html. >
+    (optional) on Mac/Linux or Windows machines:
+    <http://www.nltk.org/install.html. >
 
     -   This might be the most difficult aspect of the whole lesson. There are a
         number of steps and a range of different options.
@@ -195,7 +196,7 @@ to get it and Beautiful Soup installed.
 $sudo pip install -U nltk
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    -   If you’re working with Python 2.7 and have not perviously installed Pip
+    -   If you’re working with Python 2.7 and have not previously installed Pip
         then the command above will fail (if you don’t remember, give it a try
         and see if it works).
 
@@ -528,9 +529,13 @@ concordance:
 
 The pos\_tag function adds part of speech tags to word tokens (i.e. is the word
 a noun, verb, adjective etc). This is a slow, computationally intensive, task,
-so we can limited to a small sample. This is an important step in an NLP
+so we can limit it to a small sample. This is an important step in an NLP
 pipeline, as more complicated tasks reply on part of speech tags. For example,
-we can add Named Entity tags to the part of speech tags.
+we can add Named Entity tags to the part of speech tags. Skim through the
+results and try to find some Organizations, People and Places. The NLTK book
+provides a method for extracting relationships out of this tagged data, so you
+can identify organizations linked to places in the text. Marx’s *Capital* is not
+the best test material for this tool.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>tagged= nltk.pos_tag(tokens[8000:10000])
@@ -538,10 +543,7 @@ we can add Named Entity tags to the part of speech tags.
 >>>namedentities
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Skim through the results and try to find some Orangizations, People and Places.
-The NLTK book provides a method for extracting relationships out of this tagged
-data, so you can identify organizations linked to places in the text. Marx’s
-*Capital* is not the best test material for this tool.
+ 
 
 This regular expression provide a wide range of methods to search through the
 text. This example finds all the words found before the word man in the text:
@@ -708,7 +710,7 @@ Words before man:
 
  
 
-Disperson Plot:
+Dispersion Plot:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>text.dispersion_plot(["labour", "democracy", "freedom", "capital", "nature"])
