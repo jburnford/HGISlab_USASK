@@ -1,11 +1,7 @@
 **Basic Introduction to the Natural Language Toolkit**
 ------------------------------------------------------
 
-**Ian comment: I put my comments in bold throughout. I think a big early one is
-to really sell why the NLTK shines? It can do some things that other packages
-don't offer, but other things will be familiar to users - i.e. word frequency,
-normalizing by lowercasing, etc. Another paragraph really selling the utility of
-this might help. Maybe an example from your own research?**
+ 
 
 This lesson introduces the [Natural Language Toolkit
 (NLTK)](<http://www.nltk.org/>), which is "a leading platform for building
@@ -103,11 +99,7 @@ traditional historical methods.
 
 ### Installing Python:
 
-**Comment from Ian: Could you give a bit more guidance to users here? Do you
-think they should dive right ahead and move on to Python 3? Or is 2.7 sufficient
-to get through your lessons? I think you want to be upfront.**
-
-Python 2.7 and 3.x:
+**Python 2.7 and 3.x:**
 
 There are two versions of Python 2.7 and 3.x. Version 2.7 is no longer
 developed, but a lot of older code still relies on it and a lot of people
