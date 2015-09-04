@@ -32,7 +32,7 @@ authors are currently updating the book and plan to publish a second edition in
 early 2016. The online version has incorporated most of the updates and flags
 the chapters that are still works in progress.
 
-### Online Demonstration: 
+### Online Demonstration:
 
 Before installing the NLTK package on your computer, we can test some of its key
 features online. [Text-Processing.com](<http://text-processing.com/demo/>)
@@ -67,6 +67,8 @@ each other and make it possible to extract useful information. The website demos
 some of these more advanced steps, including part of speech tagging, chunking
 and sentiment analysis.
 
+![](<ProgrammingHistorianNLTKdraft.images/vUwRmA.png>)
+
 **Tag and Chunk Text:**
 
 We can use the same Hansard sentence to demo some of the Tag and Chunk Text
@@ -74,9 +76,110 @@ tools. Cut and past it into the box and click the "Tag & Chunk”. This tool
 starts by tagging all of the tokens with different parts of speech and then
 extracts [noun phrase](<https://en.wikipedia.org/wiki/Noun_phrase>)s. The
 results from the Default Tagger & Named Entity (NE) Chunker are not that
-promising. Try some of the other options. The Default Tagger & IEER NE Chunker
-is a little more successful with the locations, but still makes some errors. It
-would be possible to [train a Named Entity
+promising. Try some of the other options.
+
+**Defualt Tagger & NE Chunker:**
+
+>   **Phrases and Named Entities**
+
+>   PERSON:
+
+>   Pirie/NNP
+
+>   GPE:
+
+>   Vancouver/NNP
+
+>   GPE:
+
+>   Winnipeg/NNP
+
+>   GPE:
+
+>   New/NNP York/NNP
+
+>   GPE:
+
+>   St/NNP
+
+>   PERSON:
+
+>   Louis/NNP
+
+>   PERSON:
+
+>   Albany/NNP
+
+>   PERSON:
+
+>   Saskatoon/NNP
+
+>   ORGANIZATION:
+
+>   Scottish/NNP Home/NNP Rule/NNP
+
+**Defualt Tagger & NE Chunker:**
+
+>   **Phrases and Named Entities**
+
+>   LOCATION:
+
+>   Mr/NNP
+
+>   PERSON:
+
+>   Pirie/NNP
+
+>   ORGANIZATION:
+
+>   Prime/NNP
+
+>   LOCATION:
+
+>   Vancouver/NNP
+
+>   LOCATION:
+
+>   Winnipeg/NNP
+
+>   LOCATION:
+
+>   New/NNP York/NNP
+
+>   LOCATION:
+
+>   St/NNP
+
+>   PERSON:
+
+>   Louis/NNP
+
+>   LOCATION:
+
+>   Albany/NNP
+
+>   LOCATION:
+
+>   Saskatoon/NNP
+
+>   ORGANIZATION:
+
+>   places/NNS
+
+>   ORGANIZATION:
+
+>   Scottish/NNP Home/NNP Rule/NNP
+
+>   DURATION:
+
+>   pledge/NN
+
+
+
+The Default Tagger & IEER NE Chunker is a little more successful with the
+locations, identifying Vancouver, Winnipgeg New York, Albany, and Saskatoon but
+still makes some errors including St. Louis and Mr. It would be possible to
+[train a Named Entity
 Chunker](<http://mattshomepage.com/#/blog/feb2013/liftingthehood>) on a sample
 of the Hansard corpus to improve results further.
 
@@ -89,13 +192,17 @@ IMDb: [Loved It](<http://www.imdb.com/title/tt2024544/reviews?filter=love>) &
 positive and negative reviews and past them (one at a time) into the [Sentiment
 Analysis demo box](<http://text-processing.com/demo/sentiment/>). The tool
 starts by assessing whether the text is natural or polarized and if it finds it
-is polarized it estimates whether it is positive or negative. As with just about
-all  text mining methods, sentiment analysis does not work as effectively as
-close reading, but it still might be a useful tool to identify negative
-paragraphs in a large corpus of text, which you could then scrutinize using more
-traditional historical methods.
+is polarized it estimates whether it is positive or negative. In the two samples
+below, the Subjectivity scores of the 5 star and 1 star reviews are both 0.9,
+while the 5 star review scores a 0.9 positive and the 1 star review is ranked
+70% negative. As with just about all text mining methods, sentiment analysis
+does not work as effectively as close reading, but it still might be a useful
+tool to identify negative paragraphs in a large corpus of text, which you could
+then scrutinize using more traditional historical methods.
 
- 
+![](<ProgrammingHistorianNLTKdraft.images/GlzcUX.png>)
+
+![](<ProgrammingHistorianNLTKdraft.images/Yjsmda.png>)
 
 ### Installing Python:
 
@@ -182,7 +289,7 @@ to get it and Beautiful Soup installed.
 
 1.  The NLTK website provides instructions on installing their package and Numpy
     (optional) on Mac/Linux or Windows machines:
-    <http://www.nltk.org/install.html. >
+    \<http://www.nltk.org/install.html. \>
 
     -   This might be the most difficult aspect of the whole lesson. There are a
         number of steps and a range of different options.
@@ -200,9 +307,9 @@ $sudo pip install -U nltk
         then the command above will fail (if you don’t remember, give it a try
         and see if it works).
 
-        -   If you do not have Pip you need to first install Easy Install and
-            then install Pip. Use curl on the Terminal command line to install
-            Easy Install:
+    -   If you do not have Pip you need to first install Easy Install and then
+        install Pip. Use curl on the Terminal command line to install Easy
+        Install:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $curl https://bootstrap.pypa.io/ez_setup.py -o - | python
@@ -212,21 +319,24 @@ $sudo easy_install pip
     -   Once that is complete, you can use the pip command above to install
         NLTK.
 
-    -   It is a little easier for Windows.
+ 
 
-        -   Go to the Windows [download
-            page](<https://pypi.python.org/pypi/nltk>) and be sure to choose the
-            [nltk-3.0.4.win32.exe
-            ](<https://pypi.python.org/packages/2.6/n/nltk/nltk-3.0.4.win32.exe#md5=0a46df1aa62d05b6d5d4bf70f93e4689>)MS
-            Windows installer. Double click on the .exe file once it is
-            downloaded and follow the instructions.
+It is a little easier for Windows.
+
+    -   Go to the Windows [download page](<https://pypi.python.org/pypi/nltk >)
+        and be sure to choose the nltk-3.0.4.win32.ex MS  
+        Windows installer.
+
+    -   Double click on the .exe file once it is downloaded and follow the
+        instructions.
 
     -   You can also install Numpy, an important Python package used for a wide
         range of scientific computing, but it is not necessary for this lesson.
 
-1.  To double check that it all worked, launch Python in your terminal or Python
-    Shell and try to import nltk and hit enter. If you don’t get an error it
-    worked:
+ 
+
+To double check that it all worked, launch Python in your terminal or Python
+Shell and try to import nltk and hit enter. If you don’t get an error it worked:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>import nltk 
@@ -236,19 +346,19 @@ $sudo easy_install pip
 
 **Beautiful Soup:**
 
-1.  Next, check to see if you have Beautiful Soup already installed from a
-    pervious lesson.
+    -   Next, check to see if you have Beautiful Soup already installed from a
+        pervious lesson.
 
-2.  From the Python command line or Shell, try ‘import bs4’ and hit enter to
-    check Beautiful Soup is installed.
+    -   From the Python command line or Shell, try ‘import bs4’ and hit enter to
+        check Beautiful Soup is installed.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>import bs4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1.  If you get an error, visit the "[Intro to Beautiful
-    Soup](<http://programminghistorian.org/lessons/intro-to-beautiful-soup>)"
-    lesson for instructions on installing beautifulsoup4
+If you get an error, visit the "[Intro to Beautiful
+Soup](<http://programminghistorian.org/lessons/intro-to-beautiful-soup>)" lesson
+for instructions on installing beautifulsoup4
 
  
 
@@ -336,6 +446,7 @@ Python3: >>>import urllib.request
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>>from nltk.corpus import stopwords
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
